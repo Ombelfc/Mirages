@@ -1,12 +1,31 @@
-﻿<Window x:Class="Mirages.MainWindow"
+﻿<Controls:MetroWindow x:Class="Mirages.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Mirages"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:st="http://schemas.spicytaco.io/"
+        xmlns:TabItems="clr-namespace:Mirages.Controls"
+        xmlns:local="clr-namespace:Mirages" mc:Ignorable="d"
+        Title="Mirages" Height="600" Width="1600">
+
+
+    <TabControl DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+        <TabItem Header="Function Filters" DataContext="{Binding Elementary, Source={StaticResource Locator}}">
+
+            <TabItems:ElementaryTab />
+
+        </TabItem>
         
-    </Grid>
-</Window>
+        <TabItem Header="Binarization" DataContext="{Binding Binarization, Source={StaticResource Locator}}">
+
+            <TabItems:BinarizationTab />
+
+        </TabItem>
+        
+        <TabItem Header="Convolution Filters"></TabItem>
+
+    </TabControl>
+
+</Controls:MetroWindow>
