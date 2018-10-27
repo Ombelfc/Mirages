@@ -146,11 +146,7 @@ namespace Mirages.ViewModel
                 var image = new BitmapImage(new Uri(openFileDialog.FileName));
                 OriginalImage = image;
                 EditedImage = image;
-                IsGrayscaleEnabled = true;
-                IsInversionEnabled = true;
-                IsBrightnessEnabled = true;
-                IsContrastEnabled = true;
-                IsResetEnabled = true;
+                Reset();
             }
         });
 
@@ -183,5 +179,17 @@ namespace Mirages.ViewModel
         });
 
         #endregion
+
+        private void Reset()
+        {
+            IsGrayscaleEnabled = true;
+            IsInversionEnabled = true;
+            IsBrightnessEnabled = true;
+            IsContrastEnabled = true;
+            IsResetEnabled = true;
+
+            BrightnessValue = 0;
+            ContrastValue = 0;
+        }
     }
 }

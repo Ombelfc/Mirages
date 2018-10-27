@@ -1,8 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
-using Mirages.Binarizations;
-using Mirages.ElementaryAlgorithms;
+using Mirages.ConvolutionFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace Mirages.ViewModel
 {
-    public class BinarizationViewModel : ViewModelBase
+    public class FiltersViewModel : ViewModelBase
     {
         #region Fields
 
@@ -42,55 +41,67 @@ namespace Mirages.ViewModel
             }
         }
 
-        private int thresholdValue;
-
-        public int ThresholdValue
-        {
-            get => thresholdValue;
-            set
-            {
-                thresholdValue = value;
-                RaisePropertyChanged("ThresholdValue");
-            }
-        }
-
         #endregion
 
         #region IsEnabled Booleans
 
-        private bool isGthresholdEnabled;
+        private bool isHistogramNormalizationEnabled = false;
 
-        public bool IsGthresholdEnabled
+        public bool IsHistogramNormalizationEnabled
         {
-            get => isGthresholdEnabled;
+            get => isHistogramNormalizationEnabled;
             set
             {
-                isGthresholdEnabled = value;
-                RaisePropertyChanged("IsGthresholdEnabled");
+                isHistogramNormalizationEnabled = value;
+                RaisePropertyChanged("IsHistogramNormalizationEnabled");
             }
         }
 
-        private bool isHthresholdEnabled;
+        private bool isGaussianFilterEnabled = false;
 
-        public bool IsHthresholdEnabled
+        public bool IsGaussianFilterEnabled
         {
-            get => isHthresholdEnabled;
+            get => isGaussianFilterEnabled;
             set
             {
-                isHthresholdEnabled = value;
-                RaisePropertyChanged("IsHthresholdEnabled");
+                isGaussianFilterEnabled = value;
+                RaisePropertyChanged("IsGaussianFilterEnabled");
             }
         }
 
-        private bool isLthresholdEnabled;
+        private bool isSharpenFilterEnabled = false;
 
-        public bool IsLthresholdEnabled
+        public bool IsSharpenFilterEnabled
         {
-            get => isLthresholdEnabled;
+            get => isSharpenFilterEnabled;
             set
             {
-                isLthresholdEnabled = value;
-                RaisePropertyChanged("IsLthresholdEnabled");
+                isSharpenFilterEnabled = value;
+                RaisePropertyChanged("IsSharpenFilterEnabled");
+            }
+        }
+
+        private bool isEdgeDetectionEnabled = false;
+
+        public bool IsEdgeDetectionEnabled
+        {
+            get => isEdgeDetectionEnabled;
+            set
+            {
+                isEdgeDetectionEnabled = value;
+                RaisePropertyChanged("IsEdgeDetectionEnabled");
+            }
+        }
+
+        private bool isRobertCrossEnabled = false;
+
+        public bool IsRobertCrossEnabled
+        {
+            get => isRobertCrossEnabled;
+            set
+            {
+                isRobertCrossEnabled = value;
+                RaisePropertyChanged("IsRobertCrossEnabled");
             }
         }
 
@@ -121,9 +132,11 @@ namespace Mirages.ViewModel
                 var image = new BitmapImage(new Uri(openFileDialog.FileName));
                 OriginalImage = image;
                 EditedImage = image;
-                IsGthresholdEnabled = true;
-                IsHthresholdEnabled = true;
-                IsLthresholdEnabled = true;
+                IsHistogramNormalizationEnabled = true;
+                IsGaussianFilterEnabled = true;
+                IsSharpenFilterEnabled = true;
+                IsEdgeDetectionEnabled = true;
+                IsRobertCrossEnabled = true;
                 IsResetEnabled = true;
             }
         });
@@ -131,28 +144,32 @@ namespace Mirages.ViewModel
         public ICommand ResetImage => new RelayCommand(() =>
         {
             EditedImage = OriginalImage.Clone();
-            ThresholdValue = 0;
         });
 
-        public ICommand Gthreshold => new RelayCommand(() =>
+        public ICommand HistogramNormalization => new RelayCommand(() =>
         {
-            if (ThresholdValue > 1)
-                EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
-                EditedImage = (EditedImage as BitmapSource).ToGThreshold(ThresholdValue);
+            
         });
 
-        public ICommand Hthreshold => new RelayCommand(() =>
+        public ICommand GaussianFilter => new RelayCommand(() =>
         {
-            if (ThresholdValue > 1)
-                EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
-                EditedImage = (EditedImage as BitmapSource).ToHThreshold(ThresholdValue);
+            double[,] matrix = new double[,] { { 1, 2, 1 }, { 2, 4, 2 }, { 1, 2, 1 } };
+            EditedImage = (EditedImage as BitmapSource).GaussianFilter(matrix);
         });
 
-        public ICommand Lthreshold => new RelayCommand(() =>
+        public ICommand SharpenFilter => new RelayCommand(() =>
         {
-            if (ThresholdValue > 1)
-                EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
-                EditedImage = (EditedImage as BitmapSource).Brensen(ThresholdValue);
+
+        });
+
+        public ICommand EdgeDetection => new RelayCommand(() =>
+        {
+
+        });
+
+        public ICommand RobertCross => new RelayCommand(() =>
+        {
+
         });
     }
 }

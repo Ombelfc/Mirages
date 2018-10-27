@@ -10,7 +10,6 @@ namespace Mirages.ElementaryAlgorithms
     public static class Brightness
     {
         private const int PIXEL_SIZE = 4;
-        private const int step = 5;
 
         public unsafe static BitmapSource InhanceBrightness(this BitmapSource source, int brightnessValue)
         {

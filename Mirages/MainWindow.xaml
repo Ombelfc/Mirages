@@ -24,7 +24,11 @@
 
         </TabItem>
         
-        <TabItem Header="Convolution Filters"></TabItem>
+        <TabItem Header="Convolution Filters" DataContext="{Binding Filters, Source={StaticResource Locator}}">
+
+            <TabItems:FiltersTab />
+
+        </TabItem>
 
     </TabControl>
 

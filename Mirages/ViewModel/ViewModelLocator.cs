@@ -30,6 +30,7 @@ namespace Mirages.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ElementaryViewModel>();
             SimpleIoc.Default.Register<BinarizationViewModel>();
+            SimpleIoc.Default.Register<FiltersViewModel>();
         }
 
         public MainViewModel Main
@@ -53,6 +54,14 @@ namespace Mirages.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<BinarizationViewModel>();
+            }
+        }
+
+        public FiltersViewModel Filters
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<FiltersViewModel>();
             }
         }
 

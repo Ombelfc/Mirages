@@ -79,18 +79,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Binarizations\Thresholding.cs" />
     <Compile Include="Controls\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ElementaryTab.xaml.cs">
       <DependentUpon>ElementaryTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FiltersTab.xaml.cs">
+      <DependentUpon>FiltersTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConvolutionFilters\Gaussian.cs" />
     <Compile Include="ElementaryAlgorithms\Brightness.cs" />
     <Compile Include="ElementaryAlgorithms\Contrast.cs" />
     <Compile Include="ElementaryAlgorithms\GrayScale.cs" />
     <Compile Include="ElementaryAlgorithms\Inversion.cs" />
     <Compile Include="ViewModel\BinarizationViewModel.cs" />
     <Compile Include="ViewModel\ElementaryViewModel.cs" />
+    <Compile Include="ViewModel\FiltersViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Controls\BinarizationTab.xaml">
@@ -98,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ElementaryTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FiltersTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Histograms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
