@@ -70,7 +70,7 @@ namespace Mirages.Binarizations
             return bitmap;
         }
 
-        public unsafe static BitmapSource Brensen(this BitmapSource source, int threshold)
+        public unsafe static BitmapSource ToBernsen(this BitmapSource source, int threshold)
         {
             int width = source.PixelWidth;
             int height = source.PixelHeight;
@@ -78,10 +78,61 @@ namespace Mirages.Binarizations
 
             var windowSize = 11;
             var eps = 50;
+            var neighbours = 4;
 
             bitmap.Lock();
 
-            if(windowSize % 2 != 0)
+            var backBuffer = (byte*)bitmap.BackBuffer.ToPointer();
+
+            for(int y = 1; y < height - 1; y++)
+            {
+                for(int x = 1; x < width - 1; x++)
+                {
+                    var pixelValue = (backBuffer[4 * x + (y * bitmap.BackBufferStride) + 1] + backBuffer[4 * x + (y * bitmap.BackBufferStride) + 2] + backBuffer[4 * x + (y * bitmap.BackBufferStride) + 3]) / 3;
+
+                    var row = y;
+                    var col = x;
+                    var values = new List<int>();
+
+                    for (int yy = row - 1; yy < row + 1; yy++)
+                    {
+                        for(int xx = col - 1; xx < col + 1; xx++)
+                        {
+                            values.Add((backBuffer[4 * xx + (yy * bitmap.BackBufferStride) + 1] + backBuffer[4 * xx + (yy * bitmap.BackBufferStride) + 2] + backBuffer[4 * xx + (yy * bitmap.BackBufferStride) + 3]) / 3);
+                        }
+                    }
+
+                    var maxValue = values.Max();
+                    var minValue = values.Min();
+                    int pixelThreshold;
+
+                    if (maxValue - minValue <= eps)
+                    {
+                        pixelThreshold = threshold;
+                    }
+                    else
+                    {
+                        pixelThreshold = Convert.ToInt32((maxValue + minValue) * 0.5);
+                    }
+
+                    if (pixelValue > pixelThreshold)
+                    {
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride)] = 255;
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride) + 1] = 255;
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride) + 2] = 255;
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride) + 3] = 255;
+                    }
+                    else if (pixelValue <= pixelThreshold)
+                    {
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride)] = 0;
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride) + 1] = 0;
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride) + 2] = 0;
+                        backBuffer[4 * x + (y * bitmap.BackBufferStride) + 3] = 0;
+                    }
+                }
+            }
+
+            /*if(windowSize % 2 != 0)
             {
                 // Neighbors to consider
                 int radius = Convert.ToInt32((windowSize - 1) * 0.5);
@@ -93,11 +144,11 @@ namespace Mirages.Binarizations
 
                     for(int x = 0; x < width; x++)
                     {
-                        int pixelValue = row[x * PIXEL_SIZE + 1] + row[x * PIXEL_SIZE + 2] + row[x * PIXEL_SIZE + 3];
+                        int pixelValue = (int)((row[x * PIXEL_SIZE + 1] * 0.3) + (row[x * PIXEL_SIZE + 2] * 0.59) + (row[x * PIXEL_SIZE + 3] * 0.11));
 
                         if (y >= radius && y < height - radius)
                         {
-                            if(x >= radius && y < width - radius)
+                            if(x >= radius && x < width - radius)
                             {
                                 var values = new List<int>();
 
@@ -107,7 +158,7 @@ namespace Mirages.Binarizations
 
                                     for(int k = x - radius; k < x + radius; k++)
                                     {
-                                        values.Add(innerRow[k * PIXEL_SIZE + 1] + innerRow[k * PIXEL_SIZE + 2] + innerRow[k * PIXEL_SIZE + 3]);
+                                        values.Add((int)((innerRow[k * PIXEL_SIZE + 1] * 0.3) + (innerRow[k * PIXEL_SIZE + 2] * 0.59) + (innerRow[k * PIXEL_SIZE + 3] * 0.11)));
                                     }
                                 }
 
@@ -124,25 +175,35 @@ namespace Mirages.Binarizations
                                     pixelThreshold = Convert.ToInt32((maxValue + minValue) * 0.5);
                                 }
 
-                                if(pixelValue > pixelThreshold)
+                                if(x >= windowSize && y >= windowSize && x <= width - windowSize && y <= height - windowSize)
                                 {
-                                    for(int p = 0; p < PIXEL_SIZE; p++)
+                                    if (pixelValue > pixelThreshold)
                                     {
-                                        row[x * PIXEL_SIZE + p] = 255;
+                                        for (int p = 0; p < PIXEL_SIZE; p++)
+                                        {
+                                            row[x * PIXEL_SIZE + p] = 255;
+                                        }
+                                    }
+                                    else if (pixelValue <= pixelThreshold)
+                                    {
+                                        for (int p = 0; p < PIXEL_SIZE; p++)
+                                        {
+                                            row[x * PIXEL_SIZE + p] = 0;
+                                        }
                                     }
                                 }
-                                else if(pixelValue <= pixelThreshold)
+                                else
                                 {
                                     for (int p = 0; p < PIXEL_SIZE; p++)
                                     {
-                                        row[x * PIXEL_SIZE + p] = 0;
+                                        row[x * PIXEL_SIZE + p] = (byte)pixelThreshold;
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
+            }*/
 
             bitmap.AddDirtyRect(new System.Windows.Int32Rect(0, 0, width, height));
             bitmap.Unlock();
