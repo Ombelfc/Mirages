@@ -20,10 +20,7 @@ namespace Mirages.Binarizations
             bitmap.Lock();
 
             int[] histogram = new int[256];
-            for(int i = 0; i < histogram.Length; i++)
-            {
-                histogram[i] = 0;
-            }
+            histogram.Select(a => a = 0);
 
             var backBuffer = (byte*)bitmap.BackBuffer.ToPointer();
 
@@ -33,7 +30,7 @@ namespace Mirages.Binarizations
 
                 for(int x = 0; x < width; x++)
                 {
-                    var value = (int)((row[x * PIXEL_SIZE + 1] * 0.3) + (row[x * PIXEL_SIZE + 2] * 0.59) + (row[x * PIXEL_SIZE + 3] * 0.11));
+                    var value = (int)((row[x * PIXEL_SIZE] * 0.3) + (row[x * PIXEL_SIZE + 1] * 0.59) + (row[x * PIXEL_SIZE + 2] * 0.11));
                     histogram[value]++;
                 }
             }
@@ -53,10 +50,6 @@ namespace Mirages.Binarizations
             bitmap.Lock();
 
             int[] histogram = new int[256];
-            for (int i = 0; i < histogram.Length; i++)
-            {
-                histogram[i] = 0;
-            }
 
             var backBuffer = (byte*)bitmap.BackBuffer.ToPointer();
 
@@ -66,59 +59,30 @@ namespace Mirages.Binarizations
 
                 for (int x = 0; x < width; x++)
                 {
-                    var value = (int)((row[x * PIXEL_SIZE + 1] * 0.3) + (row[x * PIXEL_SIZE + 2] * 0.59) + (row[x * PIXEL_SIZE + 3] * 0.11));
+                    var value = (int)((row[x * PIXEL_SIZE] * 0.3) + (row[x * PIXEL_SIZE + 1] * 0.59) + (row[x * PIXEL_SIZE + 2] * 0.11));
                     histogram[value]++;
                 }
             }
 
-            int max = 0;
-            int min = 0;
-            for(int i = histogram.Length - 1; i > 0; i--)
-            {
-                if (histogram[i] > 0)
-                {
-                    max = i;
-                    break;
-                }
-            }
-            for(int i = 0; i < histogram.Length; i++)
-            {
-                if(histogram[i] > 0)
-                {
-                    min = i;
-                    break;
-                }
-            }
+            int max = FindMaxIndex(histogram);
+            int min = FindMinIndex(histogram);
 
+            histogram = new int[256];
             for (int y = 0; y < height; y++)
             {
                 var row = backBuffer + (y * bitmap.BackBufferStride);
 
                 for (int x = 0; x < width; x++)
                 {
-                    var innerIntensity = (byte)((row[x * PIXEL_SIZE + 1] * 0.3) + (row[x * PIXEL_SIZE + 2] * 0.59) + (row[x * PIXEL_SIZE + 3] * 0.11));
+                    var innerIntensity = (byte)((row[x * PIXEL_SIZE] * 0.3) + (row[x * PIXEL_SIZE + 1] * 0.59) + (row[x * PIXEL_SIZE + 2] * 0.11));
                     var outerIntensity = (byte)(((innerIntensity - min) * 255 / (max - min)));
 
                     for (int i = 0; i < PIXEL_SIZE; i++)
                     {
                         row[x * PIXEL_SIZE + i] = outerIntensity;
                     }
-                }
-            }
 
-            histogram = new int[256];
-            for (int i = 0; i < histogram.Length; i++)
-            {
-                histogram[i] = 0;
-            }
-
-            for (int y = 0; y < height; y++)
-            {
-                var row = backBuffer + (y * bitmap.BackBufferStride);
-
-                for (int x = 0; x < width; x++)
-                {
-                    var value = (int)((row[x * PIXEL_SIZE + 1] * 0.3) + (row[x * PIXEL_SIZE + 2] * 0.59) + (row[x * PIXEL_SIZE + 3] * 0.11));
+                    var value = (int)((row[x * PIXEL_SIZE] * 0.3) + (row[x * PIXEL_SIZE + 1] * 0.59) + (row[x * PIXEL_SIZE + 2] * 0.11));
                     histogram[value]++;
                 }
             }
@@ -127,6 +91,36 @@ namespace Mirages.Binarizations
             bitmap.Unlock();
 
             return (histogram, bitmap);
+        }
+
+        private static int FindMaxIndex(int[] histogram)
+        {
+            int max = 0;
+            for (int i = histogram.Length - 1; i > 0; i--)
+            {
+                if (histogram[i] > 0)
+                {
+                    max = i;
+                    break;
+                }
+            }
+
+            return max;
+        }
+
+        private static int FindMinIndex(int[] histogram)
+        {
+            int min = 0;
+            for (int i = 0; i < histogram.Length; i++)
+            {
+                if (histogram[i] > 0)
+                {
+                    min = i;
+                    break;
+                }
+            }
+
+            return min;
         }
     }
 }

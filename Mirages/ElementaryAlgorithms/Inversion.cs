@@ -29,10 +29,12 @@ namespace Mirages.ElementaryAlgorithms
                 for(int x = 0; x < width; x++)
                 {
                     // Red
-                    row[x * PIXEL_SIZE + 1] = (byte)((255 - row[x * PIXEL_SIZE + 1]));
+                    row[x * PIXEL_SIZE] = (byte)((255 - row[x * PIXEL_SIZE]));
                     // Green
-                    row[x * PIXEL_SIZE + 2] = (byte)((255 - row[x * PIXEL_SIZE + 2]));
+                    row[x * PIXEL_SIZE + 1] = (byte)((255 - row[x * PIXEL_SIZE + 1]));
                     // Blue
+                    row[x * PIXEL_SIZE + 2] = (byte)((255 - row[x * PIXEL_SIZE + 2]));
+                    // Alpha
                     row[x * PIXEL_SIZE + 3] = (byte)((255 - row[x * PIXEL_SIZE + 3]));
                 }
             }

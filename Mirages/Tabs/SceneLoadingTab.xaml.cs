@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mirages.Controls
+namespace Mirages.Tabs
 {
     /// <summary>
-    /// Interaction logic for FiltersTab.xaml
+    /// Interaction logic for SceneLoadingTab.xaml
     /// </summary>
-    public partial class FiltersTab : UserControl
+    public partial class SceneLoadingTab : UserControl
     {
-        public FiltersTab()
+        public SceneLoadingTab()
         {
             InitializeComponent();
         }

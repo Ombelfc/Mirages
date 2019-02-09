@@ -76,15 +76,34 @@ namespace Mirages.Binarizations
             int height = source.PixelHeight;
             var bitmap = new WriteableBitmap(source);
 
-            var windowSize = 11;
-            var eps = 50;
-            var neighbours = 4;
+            //var windowSize = 11;
+            //var eps = 50;
+            var neighbours = 5;
+            var neighboursRadius = (neighbours - 1) / 2;
 
             bitmap.Lock();
 
             var backBuffer = (byte*)bitmap.BackBuffer.ToPointer();
 
-            for(int y = 1; y < height - 1; y++)
+            for(int y = 0; y < height; y++)
+            {
+                var row = backBuffer + (y * bitmap.BackBufferStride);
+
+                for (int x = 0; x < width; x++)
+                {
+                    
+                    for(int i = -neighboursRadius; i <= neighboursRadius; i++)
+                    {
+                        for(int j = -neighboursRadius; j <= neighboursRadius; i++)
+                        {
+                            var value = (byte)((row[j * PIXEL_SIZE] * 0.3) + (row[j * PIXEL_SIZE + 1] * 0.59) + (row[j * PIXEL_SIZE + 2] * 0.11));
+                        }
+                    }
+                }
+            }
+
+            #region Without windowSize
+            /*for(int y = 1; y < height - 1; y++)
             {
                 for(int x = 1; x < width - 1; x++)
                 {
@@ -130,8 +149,10 @@ namespace Mirages.Binarizations
                         backBuffer[4 * x + (y * bitmap.BackBufferStride) + 3] = 0;
                     }
                 }
-            }
+            }*/
+            #endregion
 
+            #region With windowSize
             /*if(windowSize % 2 != 0)
             {
                 // Neighbors to consider
@@ -204,6 +225,7 @@ namespace Mirages.Binarizations
                     }
                 }
             }*/
+            #endregion
 
             bitmap.AddDirtyRect(new System.Windows.Int32Rect(0, 0, width, height));
             bitmap.Unlock();

@@ -7,13 +7,13 @@ using System.Windows.Media.Imaging;
 
 namespace Mirages.ConvolutionFilters
 {
-    public static class Gaussian
+    public static class Sharpen
     {
         private const int PIXEL_SIZE = 4;
-        private const double factor = 1.0 / 16.0;
+        private const double factor = 1.0;
         private const double offset = 0.0;
 
-        public unsafe static BitmapSource GaussianFilter(this BitmapSource source, double[,] matrix)
+        public unsafe static BitmapSource SharpenFilter(this BitmapSource source, double[,] matrix)
         {
             int width = source.PixelWidth;
             int height = source.PixelHeight;
@@ -31,9 +31,9 @@ namespace Mirages.ConvolutionFilters
             int calcOffset = 0;
             int byteOffset = 0;
 
-            for(int y = filterOffset; y < height - filterOffset; y++)
+            for (int y = filterOffset; y < height - filterOffset; y++)
             {
-                for(int x = filterOffset; x < width - filterOffset; x++)
+                for (int x = filterOffset; x < width - filterOffset; x++)
                 {
                     red = 0;
                     green = 0;
@@ -41,9 +41,9 @@ namespace Mirages.ConvolutionFilters
 
                     byteOffset = y * bitmap.BackBufferStride + x * 4;
 
-                    for(int filterY = -filterOffset; filterY <= filterOffset; filterY++)
+                    for (int filterY = -filterOffset; filterY <= filterOffset; filterY++)
                     {
-                        for(int filterX = -filterOffset; filterX <= filterOffset; filterX++)
+                        for (int filterX = -filterOffset; filterX <= filterOffset; filterX++)
                         {
                             calcOffset = byteOffset + (filterX * 4) + (filterY * bitmap.BackBufferStride);
 
@@ -53,9 +53,9 @@ namespace Mirages.ConvolutionFilters
                         }
                     }
 
-                    red = factor * red + offset;
-                    green = factor * green + offset;
-                    blue = factor * blue + offset;
+                    red = (factor * red + offset) + backBuffer[byteOffset];
+                    green = (factor * green + offset) + backBuffer[byteOffset + 1];
+                    blue = (factor * blue + offset) + backBuffer[byteOffset + 2];
 
                     if (red > 255) red = 255;
                     else if (red < 0) red = 0;

@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Mirages.ViewModel
+namespace Mirages.ViewModels
 {
     public class BinarizationViewModel : ViewModelBase
     {
@@ -177,11 +177,13 @@ namespace Mirages.ViewModel
 
         public ICommand LoadImage => new RelayCommand(() =>
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Select a picture";
-            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Select a picture",
+                Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
                                     "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-                                    "Portable Network Graphic (*.png)|*.png";
+                                    "Portable Network Graphic (*.png)|*.png"
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -203,29 +205,33 @@ namespace Mirages.ViewModel
 
         public ICommand Gthreshold => new RelayCommand(() =>
         {
-            if (ThresholdValue > 1)
-                EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
-                EditedImage = (EditedImage as BitmapSource).ToGThreshold(ThresholdValue);
+            if (ThresholdValue < 1) return;
+
+            EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
+            EditedImage = (EditedImage as BitmapSource).ToGThreshold(ThresholdValue);
         });
 
         public ICommand Hthreshold => new RelayCommand(() =>
         {
-            if (ThresholdValue > 1)
-                EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
-                EditedImage = (EditedImage as BitmapSource).ToHThreshold(ThresholdValue);
+            if (ThresholdValue < 1) return;
+
+            EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
+            EditedImage = (EditedImage as BitmapSource).ToHThreshold(ThresholdValue);
         });
 
         public ICommand Lthreshold => new RelayCommand(() =>
         {
-            if (ThresholdValue > 1)
-                EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
-                EditedImage = (EditedImage as BitmapSource).ToBernsen(ThresholdValue);
+            if (ThresholdValue < 1) return;
+
+            EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
+            EditedImage = (EditedImage as BitmapSource).ToBernsen(ThresholdValue);
         });
 
         public ICommand Histogram => new RelayCommand(() =>
         {
             EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
             var points = (EditedImage as BitmapSource).GenerateHistogram();
+
             HistogramPoints = ConvertToPointCollection(points);
             IsOriginalImageVisible = Visibility.Hidden;
             IsHistogramVisible = Visibility.Visible;
@@ -235,6 +241,7 @@ namespace Mirages.ViewModel
         {
             EditedImage = (OriginalImage.Clone() as BitmapSource).ToGrayScale();
             var points = (EditedImage as BitmapSource).GenerateNormalizeHistogram();
+
             EditedImage = points.Item2;
             HistogramPoints = ConvertToPointCollection(points.Item1);
             IsOriginalImageVisible = Visibility.Hidden;
@@ -242,6 +249,8 @@ namespace Mirages.ViewModel
         });
 
         #endregion
+
+        #region Helpers
 
         private void Reset()
         {
@@ -261,11 +270,12 @@ namespace Mirages.ViewModel
         private PointCollection ConvertToPointCollection(int[] points)
         {
             int max = points.Max();
-            var collection = new PointCollection();
+            var collection = new PointCollection
+            {
+                new Point(0, max)
+            };
 
-            collection.Add(new Point(0, max));
-
-            for(int i = 0; i < points.Length; i++)
+            for (int i = 0; i < points.Length; i++)
             {
                 collection.Add(new Point(i, max - points[i]));
             }
@@ -274,5 +284,7 @@ namespace Mirages.ViewModel
 
             return collection;
         }
+
+        #endregion
     }
 }

@@ -53,6 +53,9 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SpicyTaco.AutoGrid, Version=1.2.29.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpicyTaco.AutoGrid.1.2.29\lib\net40\SpicyTaco.AutoGrid.dll</HintPath>
     </Reference>
@@ -83,35 +86,45 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Binarizations\Thresholding.cs" />
-    <Compile Include="Controls\BinarizationTab.xaml.cs">
+    <Compile Include="Tabs\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ElementaryTab.xaml.cs">
+    <Compile Include="Tabs\ElementaryTab.xaml.cs">
       <DependentUpon>ElementaryTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FiltersTab.xaml.cs">
+    <Compile Include="Tabs\FiltersTab.xaml.cs">
       <DependentUpon>FiltersTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConvolutionFilters\EdgeDetection.cs" />
     <Compile Include="ConvolutionFilters\Gaussian.cs" />
+    <Compile Include="ConvolutionFilters\RobertsCross.cs" />
+    <Compile Include="ConvolutionFilters\Sharpen.cs" />
+    <Compile Include="ConvolutionFilters\Sobel.cs" />
     <Compile Include="ElementaryAlgorithms\Brightness.cs" />
     <Compile Include="ElementaryAlgorithms\Contrast.cs" />
     <Compile Include="ElementaryAlgorithms\GrayScale.cs" />
     <Compile Include="ElementaryAlgorithms\Inversion.cs" />
     <Compile Include="Binarizations\Histograms.cs" />
-    <Compile Include="ViewModel\BinarizationViewModel.cs" />
-    <Compile Include="ViewModel\ElementaryViewModel.cs" />
-    <Compile Include="ViewModel\FiltersViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Controls\BinarizationTab.xaml">
+    <Compile Include="Tabs\SceneLoadingTab.xaml.cs">
+      <DependentUpon>SceneLoadingTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\SceneImporter.cs" />
+    <Compile Include="ViewModels\BinarizationViewModel.cs" />
+    <Compile Include="ViewModels\ElementaryViewModel.cs" />
+    <Compile Include="ViewModels\FiltersViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SceneLoadingViewModel.cs" />
+    <Compile Include="ViewModels\ShortCutsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Page Include="Tabs\BinarizationTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ElementaryTab.xaml">
+    <Page Include="Tabs\ElementaryTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\FiltersTab.xaml">
+    <Page Include="Tabs\FiltersTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,6 +140,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Tabs\SceneLoadingTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -151,10 +168,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Resources\scene.unity.babylon">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\3DEngine\3DEngine.csproj">
+      <Project>{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}</Project>
+      <Name>3DEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

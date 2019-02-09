@@ -4,11 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:st="http://schemas.spicytaco.io/"
-        xmlns:TabItems="clr-namespace:Mirages.Controls"
-        xmlns:local="clr-namespace:Mirages" mc:Ignorable="d"
+        xmlns:TabItems="clr-namespace:Mirages.Tabs" mc:Ignorable="d"
         Title="Mirages" Height="600" Width="1600">
-
 
     <TabControl DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -27,6 +24,12 @@
         <TabItem Header="Convolution Filters" DataContext="{Binding Filters, Source={StaticResource Locator}}">
 
             <TabItems:FiltersTab />
+
+        </TabItem>
+
+        <TabItem Header="Scene loading" DataContext="{Binding SceneLoading, Source={StaticResource Locator}}">
+
+            <TabItems:SceneLoadingTab />
 
         </TabItem>
 

@@ -1,7 +1,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 
-namespace Mirages.ViewModel
+namespace Mirages.ViewModels
 {
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -31,39 +31,43 @@ namespace Mirages.ViewModel
             SimpleIoc.Default.Register<ElementaryViewModel>();
             SimpleIoc.Default.Register<BinarizationViewModel>();
             SimpleIoc.Default.Register<FiltersViewModel>();
+            SimpleIoc.Default.Register<SceneLoadingViewModel>();
+            SimpleIoc.Default.Register<ShortCutsViewModel>();
         }
+
+        #region ViewModels
 
         public MainViewModel Main
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
+            get => ServiceLocator.Current.GetInstance<MainViewModel>();
         }
         
         public ElementaryViewModel Elementary
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<ElementaryViewModel>();
-            }
+            get => ServiceLocator.Current.GetInstance<ElementaryViewModel>();
         }
 
         public BinarizationViewModel Binarization
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<BinarizationViewModel>();
-            }
+            get => ServiceLocator.Current.GetInstance<BinarizationViewModel>();
         }
 
         public FiltersViewModel Filters
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<FiltersViewModel>();
-            }
+            get => ServiceLocator.Current.GetInstance<FiltersViewModel>();
         }
+
+        public SceneLoadingViewModel SceneLoading
+        {
+            get => ServiceLocator.Current.GetInstance<SceneLoadingViewModel>();
+        }
+
+        public ShortCutsViewModel ShortCuts
+        {
+            get => ServiceLocator.Current.GetInstance<ShortCutsViewModel>();
+        }
+
+        #endregion
 
         public static void Cleanup()
         {

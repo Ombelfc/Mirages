@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Mirages.Controls
+namespace Mirages.Tabs
 {
     /// <summary>
     /// Interaction logic for ElementaryTab.xaml

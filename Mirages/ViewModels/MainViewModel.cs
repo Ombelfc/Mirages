@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight;
 
-namespace Mirages.ViewModel
+namespace Mirages.ViewModels
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

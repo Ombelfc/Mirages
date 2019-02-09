@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Mirages.ViewModel
+namespace Mirages.ViewModels
 {
     public class ElementaryViewModel : ViewModelBase
     {
@@ -174,11 +174,12 @@ namespace Mirages.ViewModel
 
         public ICommand Contrast => new RelayCommand(() =>
         {
-            if(ContrastValue > 1) 
-                EditedImage = (OriginalImage.Clone() as BitmapSource).InhanceContrast(ContrastValue);
+            EditedImage = (OriginalImage.Clone() as BitmapSource).InhanceContrast(ContrastValue);
         });
 
         #endregion
+
+        #region Helpers
 
         private void Reset()
         {
@@ -191,5 +192,7 @@ namespace Mirages.ViewModel
             BrightnessValue = 0;
             ContrastValue = 0;
         }
+
+        #endregion
     }
 }

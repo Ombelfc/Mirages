@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,7 +29,9 @@ namespace Mirages.ElementaryAlgorithms
 
                 for(int x = 0; x < width; x++)
                 {
-                    var grayScale = (byte)((row[x * PIXEL_SIZE + 1] * 0.3) + (row[x * PIXEL_SIZE + 2] * 0.59) + (row[x * PIXEL_SIZE + 3] * 0.11));
+                    var grayScale = (byte)((row[x * PIXEL_SIZE] * 0.3) + 
+                                           (row[x * PIXEL_SIZE + 1] * 0.59) + 
+                                           (row[x * PIXEL_SIZE + 2] * 0.11));
 
                     for(int i = 0; i < PIXEL_SIZE; i++)
                     {
