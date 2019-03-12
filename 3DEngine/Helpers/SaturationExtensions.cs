@@ -1,7 +1,4 @@
 ﻿using _3DEngine.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _3DEngine.Helpers
 {
@@ -11,6 +8,12 @@ namespace _3DEngine.Helpers
         {
             if (x < 0) return 0;
             return x > 1 ? 1 : x; 
+        }
+
+        public static double Saturate(this double x)
+        {
+            if (x < 0) return 0;
+            return x > 1 ? 1 : x;
         }
 
         public static Color SaturateColor(this Color vector)

@@ -2,15 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
+             mc:Ignorable="d" TextOptions.TextFormattingMode="Display">
+
+    <!--<i:Interaction.Behaviors>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding LoadSceneCommand, Mode=OneWay}"/>
+        </i:EventTrigger>
+    </i:Interaction.Behaviors>-->
     
     <Grid Margin="10">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="800"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -19,7 +26,7 @@
 
         <GroupBox Grid.Column="0" Header="Scene" Margin="0 0 10 0" Padding="5">
             <Canvas>
-                <Image Stretch="Fill" Source="{Binding Path=Scene}"/>
+                <Image Stretch="Fill" Source="{Binding Path=Image}"/>
             </Canvas>
         </GroupBox>
 

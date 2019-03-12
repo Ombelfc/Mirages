@@ -108,6 +108,7 @@
     <Compile Include="Tabs\SceneLoadingTab.xaml.cs">
       <DependentUpon>SceneLoadingTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utility\MessengerTokens.cs" />
     <Compile Include="Utility\SceneImporter.cs" />
     <Compile Include="ViewModels\BinarizationViewModel.cs" />
     <Compile Include="ViewModels\ElementaryViewModel.cs" />

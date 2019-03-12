@@ -4,17 +4,24 @@ using System.Text;
 
 namespace _3DEngine.Utilities
 {
-    public class Face
+    public struct Face
     {
-        private readonly int A;
-        private readonly int B;
-        private readonly int C;
+        public readonly int A;
+        public readonly int B;
+        public readonly int C;
 
         public Face(int a, int b, int c)
         {
             A = a;
             B = b;
             C = c;
+        }
+
+        public void Edges(Action<int, int> action)
+        {
+            action.Invoke(A, B);
+            action.Invoke(B, C);
+            action.Invoke(A, C);
         }
     }
 }

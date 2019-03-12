@@ -1,8 +1,6 @@
 ﻿using _3DEngine.Components;
 using _3DEngine.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _3DEngine.Shapes
 {
@@ -33,14 +31,14 @@ namespace _3DEngine.Shapes
         {
             Vector3[] vertices = new Vector3[nbverticescap + nbverticescap + nbsides * nbheightseg * 2 + 2];
             int vert = 0;
-            float _2pi = (float)Math.PI * 2f;
+            float _2pi = (float) Math.PI * 2f;
 
             // Bottom cap
             vertices[vert++] = new Vector3(0f, 0f, 0f);
             while (vert <= nbsides)
             {
-                float rad = (float)vert / nbsides * _2pi;
-                vertices[vert] = new Vector3((float)Math.Cos(rad) * bottomRadius, 0f, (float)Math.Sin(rad) * bottomRadius);
+                float rad = (float) vert / nbsides * _2pi;
+                vertices[vert] = new Vector3((float) Math.Cos(rad) * bottomRadius, 0f, (float) Math.Sin(rad) * bottomRadius);
                 vert++;
             }
 
@@ -48,8 +46,8 @@ namespace _3DEngine.Shapes
             vertices[vert++] = new Vector3(0f, height, 0f);
             while (vert < nbsides * 2 + 1)
             {
-                float rad = (float)(vert - nbsides - 1) / nbsides * _2pi;
-                vertices[vert] = new Vector3((float)Math.Cos(rad) * topRadius, height, (float)Math.Sin(rad) * topRadius);
+                float rad = (float) (vert - nbsides - 1) / nbsides * _2pi;
+                vertices[vert] = new Vector3((float) Math.Cos(rad) * topRadius, height, (float) Math.Sin(rad) * topRadius);
                 vert++;
             }
 
@@ -57,9 +55,9 @@ namespace _3DEngine.Shapes
             int v = 0;
             while (vert <= vertices.Length - 4)
             {
-                float rad = (float)v / nbsides * _2pi;
-                vertices[vert] = new Vector3((float)Math.Cos(rad) * topRadius, height, (float)Math.Sin(rad) * topRadius);
-                vertices[vert + 1] = new Vector3((float)Math.Cos(rad) * bottomRadius, 0, (float)Math.Sin(rad) * bottomRadius);
+                float rad = (float) v / nbsides * _2pi;
+                vertices[vert] = new Vector3((float) Math.Cos(rad) * topRadius, height, (float) Math.Sin(rad) * topRadius);
+                vertices[vert + 1] = new Vector3((float) Math.Cos(rad) * bottomRadius, 0, (float) Math.Sin(rad) * bottomRadius);
                 vert += 2;
                 v++;
             }
@@ -84,6 +82,7 @@ namespace _3DEngine.Shapes
                 tri++;
                 i += 3;
             }
+
             faces[i] = new Face(0, tri + 1, 1);
             tri++;
             i += 3;
@@ -95,6 +94,7 @@ namespace _3DEngine.Shapes
                 tri++;
                 i += 3;
             }
+
             faces[i] = new Face(nbverticescap + 1, tri + 1, nbverticescap);
             tri++;
             i += 3;
@@ -106,6 +106,7 @@ namespace _3DEngine.Shapes
                 faces[i] = new Face(tri + 2, tri + 1, tri);
                 tri++;
                 i += 3;
+
                 faces[i] = new Face(tri + 1, tri + 2, tri);
                 tri++;
                 i += 3;

@@ -41,7 +41,7 @@ namespace _3DEngine.Shapes
             Vector3[] vertices = new Vector3[nbVerticesCap * 2 + nbVerticesSides * 2];
 
             int vert = 0;
-            float _2pi = (float)Math.PI * 2f;
+            float _2pi = (float) Math.PI * 2f;
 
             // Bottom cap
             int sideCounter = 0;
@@ -49,9 +49,9 @@ namespace _3DEngine.Shapes
             {
                 sideCounter = sideCounter == nbsides ? 0 : sideCounter;
 
-                float r1 = (float)(sideCounter++) / nbsides * _2pi;
-                float cos = (float)Math.Cos(r1);
-                float sin = (float)Math.Sin(r1);
+                float r1 = (float) (sideCounter++) / nbsides * _2pi;
+                float cos = (float) Math.Cos(r1);
+                float sin = (float) Math.Sin(r1);
                 vertices[vert] = new Vector3(cos * (bottomRadius1 - bottomRadius2 * .5f), 0f, sin * (bottomRadius1 - bottomRadius2 * .5f));
                 vertices[vert + 1] = new Vector3(cos * (bottomRadius1 + bottomRadius2 * .5f), 0f, sin * (bottomRadius1 + bottomRadius2 * .5f));
                 vert += 2;
@@ -63,9 +63,9 @@ namespace _3DEngine.Shapes
             {
                 sideCounter = sideCounter == nbsides ? 0 : sideCounter;
 
-                float r1 = (float)(sideCounter++) / nbsides * _2pi;
-                float cos = (float)Math.Cos(r1);
-                float sin = (float)Math.Sin(r1);
+                float r1 = (float) (sideCounter++) / nbsides * _2pi;
+                float cos = (float) Math.Cos(r1);
+                float sin = (float) Math.Sin(r1);
                 vertices[vert] = new Vector3(cos * (topRadius1 - topRadius2 * .5f), height, sin * (topRadius1 - topRadius2 * .5f));
                 vertices[vert + 1] = new Vector3(cos * (topRadius1 + topRadius2 * .5f), height, sin * (topRadius1 + topRadius2 * .5f));
                 vert += 2;
@@ -77,9 +77,9 @@ namespace _3DEngine.Shapes
             {
                 sideCounter = sideCounter == nbsides ? 0 : sideCounter;
 
-                float r1 = (float)(sideCounter++) / nbsides * _2pi;
-                float cos = (float)Math.Cos(r1);
-                float sin = (float)Math.Sin(r1);
+                float r1 = (float) (sideCounter++) / nbsides * _2pi;
+                float cos = (float) Math.Cos(r1);
+                float sin = (float) Math.Sin(r1);
 
                 vertices[vert] = new Vector3(cos * (topRadius1 + topRadius2 * .5f), height, sin * (topRadius1 + topRadius2 * .5f));
                 vertices[vert + 1] = new Vector3(cos * (bottomRadius1 + bottomRadius2 * .5f), 0, sin * (bottomRadius1 + bottomRadius2 * .5f));

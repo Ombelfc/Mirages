@@ -8,7 +8,7 @@ namespace _3DEngine.Components
     public class Mesh
     {
         public string Name { get; set; }
-        protected Color Color { get; set; } = Colors.Yellow;
+        public Color Color { get; set; } = Colors.Yellow;
 
         public Vector3[] Vertices { get; set; }
         public Face[] Faces { get; set; }

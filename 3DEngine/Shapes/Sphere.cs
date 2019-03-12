@@ -25,22 +25,22 @@ namespace _3DEngine.Shapes
         private Vector3[] GetVertices()
         {
             Vector3[] vertices = new Vector3[(nblong + 1) * nblat + 2];
-            float _pi = (float)Math.PI;
+            float _pi = (float) Math.PI;
             float _2pi = _pi * 2f;
 
             vertices[0] = Vector3.UnitX * radius;
 
             for (int lat = 0; lat < nblat; lat++)
             {
-                float a1 = _pi * (float)(lat + 1) / (nblat + 1);
-                float sin1 = (float)Math.Sin(a1);
-                float cos1 = (float)Math.Cos(a1);
+                float a1 = _pi * (float) (lat + 1) / (nblat + 1);
+                float sin1 = (float) Math.Sin(a1);
+                float cos1 = (float) Math.Cos(a1);
 
                 for (int lon = 0; lon <= nblong; lon++)
                 {
-                    float a2 = _2pi * (float)(lon == nblong ? 0 : lon) / nblong;
-                    float sin2 = (float)Math.Sin(a2);
-                    float cos2 = (float)Math.Cos(a2);
+                    float a2 = _2pi * (float) (lon == nblong ? 0 : lon) / nblong;
+                    float sin2 = (float) Math.Sin(a2);
+                    float cos2 = (float) Math.Cos(a2);
 
                     vertices[lon + lat * (nblong + 1) + 1] = new Vector3(sin1 * cos2, cos1, sin1 * sin2) * radius;
                 }

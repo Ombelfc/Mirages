@@ -115,18 +115,18 @@ namespace Mirages.Utility
 
                     scene.Meshes.Add(mesh);
                 }
-
-                // Import camera settings
-                var cameraTarget = ParseVector3(json["cameras"][0]["target"]);
-                var cameraPosition = ParseVector3(json["cameras"][0]["position"]);
-
-                scene.Camera = new Camera
-                {
-                    Position = cameraPosition,
-                    LookDirection = (cameraTarget - cameraPosition).Normalize(),
-                    FieldOfViewRadians = (float)json["cameras"][0]["fov"]
-                };
             }
+
+            // Import camera settings
+            var cameraTarget = ParseVector3(json["cameras"][0]["target"]);
+            var cameraPosition = ParseVector3(json["cameras"][0]["position"]);
+
+            scene.Camera = new Camera
+            {
+                Position = cameraPosition,
+                LookDirection = (cameraTarget - cameraPosition).Normalize(),
+                FieldOfViewRadians = (float)json["cameras"][0]["fov"]
+            };
 
             // Placing the 'floor' grid hightest on the list.
             var plane = scene.Meshes.First(m => m.Name == "Plane");
