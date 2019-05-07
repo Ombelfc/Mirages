@@ -4,22 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         xmlns:TabItems="clr-namespace:Mirages.Tabs" mc:Ignorable="d"
         Title="Mirages" Height="600" Width="1600">
-
-    <i:Interaction.Triggers>
-
-        <i:EventTrigger EventName="KeyDown">
-            <cmd:EventToCommand Command="{Binding ShortCuts.KeyDown, Source={StaticResource Locator}}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="MouseWheel">
-            <cmd:EventToCommand Command="{Binding ShortCuts.WheelSpin, Source={StaticResource Locator}}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-
-    </i:Interaction.Triggers>
 
     <TabControl DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -44,6 +30,12 @@
         <TabItem Header="Scene loading" DataContext="{Binding SceneLoading, Source={StaticResource Locator}}">
 
             <TabItems:SceneLoadingTab />
+
+        </TabItem>
+
+        <TabItem Header="Ray Tracer" DataContext="{Binding RayTracer, Source={StaticResource Locator}}">
+
+            <TabItems:RayTracerTab />
 
         </TabItem>
 

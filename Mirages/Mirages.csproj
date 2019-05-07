@@ -105,6 +105,9 @@
     <Compile Include="ElementaryAlgorithms\GrayScale.cs" />
     <Compile Include="ElementaryAlgorithms\Inversion.cs" />
     <Compile Include="Binarizations\Histograms.cs" />
+    <Compile Include="Tabs\RayTracerTab.xaml.cs">
+      <DependentUpon>RayTracerTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\SceneLoadingTab.xaml.cs">
       <DependentUpon>SceneLoadingTab.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,7 @@
     <Compile Include="ViewModels\ElementaryViewModel.cs" />
     <Compile Include="ViewModels\FiltersViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RayTracerViewModel.cs" />
     <Compile Include="ViewModels\SceneLoadingViewModel.cs" />
     <Compile Include="ViewModels\ShortCutsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -141,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Tabs\RayTracerTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Tabs\SceneLoadingTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

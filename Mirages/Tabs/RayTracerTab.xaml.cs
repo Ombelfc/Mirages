@@ -3,11 +3,11 @@
 namespace Mirages.Tabs
 {
     /// <summary>
-    /// Interaction logic for SceneLoadingTab.xaml
+    /// Interaction logic for RayTracerTab.xaml
     /// </summary>
-    public partial class SceneLoadingTab : UserControl
+    public partial class RayTracerTab : UserControl
     {
-        public SceneLoadingTab()
+        public RayTracerTab()
         {
             InitializeComponent();
         }
