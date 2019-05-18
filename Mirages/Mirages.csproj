@@ -86,13 +86,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Binarizations\Thresholding.cs" />
-    <Compile Include="Tabs\BinarizationTab.xaml.cs">
+    <Compile Include="Model\RayTracerModel.cs" />
+    <Compile Include="Views\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\ElementaryTab.xaml.cs">
+    <Compile Include="Views\ElementaryTab.xaml.cs">
       <DependentUpon>ElementaryTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\FiltersTab.xaml.cs">
+    <Compile Include="Views\FiltersTab.xaml.cs">
       <DependentUpon>FiltersTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConvolutionFilters\EdgeDetection.cs" />
@@ -105,7 +106,10 @@
     <Compile Include="ElementaryAlgorithms\GrayScale.cs" />
     <Compile Include="ElementaryAlgorithms\Inversion.cs" />
     <Compile Include="Binarizations\Histograms.cs" />
-    <Compile Include="Tabs\SceneLoadingTab.xaml.cs">
+    <Compile Include="Views\RayTracerTab.xaml.cs">
+      <DependentUpon>RayTracerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SceneLoadingTab.xaml.cs">
       <DependentUpon>SceneLoadingTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\MessengerTokens.cs" />
@@ -114,18 +118,19 @@
     <Compile Include="ViewModels\ElementaryViewModel.cs" />
     <Compile Include="ViewModels\FiltersViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RayTracerViewModel.cs" />
     <Compile Include="ViewModels\SceneLoadingViewModel.cs" />
     <Compile Include="ViewModels\ShortCutsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Page Include="Tabs\BinarizationTab.xaml">
+    <Page Include="Views\BinarizationTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\ElementaryTab.xaml">
+    <Page Include="Views\ElementaryTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\FiltersTab.xaml">
+    <Page Include="Views\FiltersTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,7 +146,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Tabs\SceneLoadingTab.xaml">
+    <Page Include="Views\RayTracerTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SceneLoadingTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -164,5 +164,15 @@ namespace _3DEngine.Shapes
 
             return faces;
         }
+
+        public override double IntersectDistance(Ray ray)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Vector3 Normalize(Vector3 position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

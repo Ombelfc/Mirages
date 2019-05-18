@@ -32,6 +32,7 @@ namespace Mirages.ViewModels
             SimpleIoc.Default.Register<BinarizationViewModel>();
             SimpleIoc.Default.Register<FiltersViewModel>();
             SimpleIoc.Default.Register<SceneLoadingViewModel>();
+            SimpleIoc.Default.Register<RayTracerViewModel>();
             SimpleIoc.Default.Register<ShortCutsViewModel>();
         }
 
@@ -60,6 +61,11 @@ namespace Mirages.ViewModels
         public SceneLoadingViewModel SceneLoading
         {
             get => ServiceLocator.Current.GetInstance<SceneLoadingViewModel>();
+        }
+
+        public RayTracerViewModel RayTracer
+        {
+            get => ServiceLocator.Current.GetInstance<RayTracerViewModel>();
         }
 
         public ShortCutsViewModel ShortCuts

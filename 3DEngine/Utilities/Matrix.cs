@@ -7,7 +7,7 @@ namespace _3DEngine.Utilities
     {
         private const int Size = 4;
 
-        public readonly float[,] Mat = new float[Size, Size];
+        public readonly double[,] Mat = new double[Size, Size];
 
         private static Matrix Identity => new Matrix
         {

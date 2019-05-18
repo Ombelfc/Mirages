@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _3DEngine.Utilities
 {
     public struct Vector3
     {
-        public readonly float X;
-        public readonly float Y;
-        public readonly float Z;
+        public readonly double X;
+        public readonly double Y;
+        public readonly double Z;
 
         public static Vector3 Zero => new Vector3(0, 0, 0);
         public static Vector3 One => new Vector3(1, 1, 1);
@@ -17,7 +15,9 @@ namespace _3DEngine.Utilities
         public static Vector3 UnitY => new Vector3(0, 1, 0);
         public static Vector3 UnitZ => new Vector3(0, 0, 1);
 
-        public Vector3(float x, float y, float z)
+        public static double Magnitude(Vector3 vector) => Math.Sqrt(DotProduct(vector, vector));
+
+        public Vector3(double x, double y, double z)
         {
             X = x;
             Y = y;
@@ -29,13 +29,20 @@ namespace _3DEngine.Utilities
             return this * (1 / Length());
         }
 
+        public static Vector3 Normalize(Vector3 vector)
+        {
+            double magnitude = Magnitude(vector);
+
+            return magnitude > 0 ? vector * (1 / magnitude) : default(Vector3);
+        }
+
         /// <summary>
         /// Length of the vector.
         /// </summary>
         /// <returns></returns>
-        private float Length()
+        private double Length()
         {
-            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+            return Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
         public static Vector3 CrossProduct(Vector3 left, Vector3 right)
@@ -46,7 +53,7 @@ namespace _3DEngine.Utilities
                 left.X * right.Y - left.Y * right.X);
         }
 
-        public static float DotProduct(Vector3 left, Vector3 right)
+        public static double DotProduct(Vector3 left, Vector3 right)
         {
             return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
         }
@@ -67,7 +74,7 @@ namespace _3DEngine.Utilities
             return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
         }
 
-        public static Vector3 operator *(Vector3 left, float value)
+        public static Vector3 operator *(Vector3 left, double value)
         {
             return new Vector3(left.X * value, left.Y * value, left.Z * value);
         }

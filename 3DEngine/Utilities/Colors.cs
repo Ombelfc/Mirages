@@ -23,13 +23,13 @@ namespace _3DEngine.Utilities
         public Color32(byte r, byte g, byte b, byte a) : base(r, g, b, a) { }
     }
 
-    public class Color : Color<float>
+    public class Color : Color<double>
     {
         public Color() : base(0, 0, 0, 0) { }
 
-        public Color(float r, float g, float b, float a) : base(r.Saturate(), g.Saturate(), b.Saturate(), a.Saturate()) { }
+        public Color(double r, double g, double b, double a) : base(r.Saturate(), g.Saturate(), b.Saturate(), a.Saturate()) { }
 
-        protected static Color Map(Color left, Color right, Func<float, float, float> func)
+        protected static Color Map(Color left, Color right, Func<double, double, double> func)
         {
             return new Color(
                 func.Invoke(left.R, right.R),
@@ -40,7 +40,7 @@ namespace _3DEngine.Utilities
 
         protected static Color Mix(Color left, Color right)
         {
-            var func = new Func<float, float, float>((l, r) => l * left.A * (1 - right.A) + r * right.A);
+            var func = new Func<double, double, double>((l, r) => l * left.A * (1 - right.A) + r * right.A);
 
             return new Color(
                 func.Invoke(left.R, right.R),
@@ -49,7 +49,7 @@ namespace _3DEngine.Utilities
                 func.Invoke(1, 1));
         }
 
-        protected static Color Map(float left, Color right, Func<float, float, float> func)
+        protected static Color Map(double left, Color right, Func<double, double, double> func)
         {
             return new Color(
                 func.Invoke(left, right.R),
@@ -61,17 +61,17 @@ namespace _3DEngine.Utilities
         public static Color operator * (Color left, Color right) => Map(left, right, (a, b) => a * b);
         public static Color operator + (Color left, Color right) => Map(left, right, (a, b) => a + b);
         public static Color operator - (Color left, Color right) => Map(left, right, (a, b) => a - b);
-        public static Color operator * (float left, Color right) => Map(left, right, (a, b) => a * b);
-        public static Color operator + (float left, Color right) => Map(left, right, (a, b) => a * b);
-        public static Color operator - (float left, Color right) => Map(left, right, (a, b) => a * b);
+        public static Color operator * (double left, Color right) => Map(left, right, (a, b) => a * b);
+        public static Color operator + (double left, Color right) => Map(left, right, (a, b) => a * b);
+        public static Color operator - (double left, Color right) => Map(left, right, (a, b) => a * b);
 
         public Color32 ToColor32()
         {
             return new Color32(
-                (byte)(Byte.MaxValue * R.Saturate()),
-                (byte)(Byte.MaxValue * G.Saturate()),
-                (byte)(Byte.MaxValue * B.Saturate()),
-                (byte)(Byte.MaxValue * A.Saturate()));
+                (byte)(byte.MaxValue * R.Saturate()),
+                (byte)(byte.MaxValue * G.Saturate()),
+                (byte)(byte.MaxValue * B.Saturate()),
+                (byte)(byte.MaxValue * A.Saturate()));
         }
     }
 
@@ -83,5 +83,8 @@ namespace _3DEngine.Utilities
         public static Color Blue => new Color(0, 0, 1, 1);
         public static Color Green => new Color(0, 1, 0, 1);
         public static Color DarkGrey => new Color(0.3f, 0.3f, 0.3f, 1);
+
+        public static Color Background => new Color(0, 0, 0, 0);
+        public static Color DefaultColor => new Color(0, 0, 0, 0);
     }
 }

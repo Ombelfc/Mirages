@@ -4,12 +4,12 @@ namespace _3DEngine.Utilities
 {
     public struct Quaternion
     {
-        public readonly float X;
-        public readonly float Y;
-        public readonly float Z;
-        public readonly float W;
+        public readonly double X;
+        public readonly double Y;
+        public readonly double Z;
+        public readonly double W;
 
-        public Quaternion(float x, float y, float z, float w)
+        public Quaternion(double x, double y, double z, double w)
         {
             X = x;
             Y = y;
@@ -26,7 +26,7 @@ namespace _3DEngine.Utilities
         // The angle of roll (in radians)
         public double Roll => Math.Atan2(2.0 * (X*Y + W*Z), W*W + X*X - Y*Y - Z*Z);
 
-        public static Quaternion RotationYawPitchRoll(float yaw, float pitch, float roll)
+        public static Quaternion RotationYawPitchRoll(double yaw, double pitch, double roll)
         {
             var halfRoll = roll * 0.5;
             var halfPitch = pitch * 0.5;
@@ -40,21 +40,21 @@ namespace _3DEngine.Utilities
             var cosYaw = Math.Cos(halfYaw);
 
             return new Quaternion(
-                (float)(cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll),
-                (float)(sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll),
-                (float)(cosYaw * cosPitch * sinRoll - sinYaw * sinPitch * cosRoll),
-                (float)(cosYaw * cosPitch * cosRoll + sinYaw * sinPitch * sinRoll));
+                (cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll),
+                (sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll),
+                (cosYaw * cosPitch * sinRoll - sinYaw * sinPitch * cosRoll),
+                (cosYaw * cosPitch * cosRoll + sinYaw * sinPitch * sinRoll));
         }
 
-        public static Quaternion RotationAxis(Vector3 axis, float angle)
+        public static Quaternion RotationAxis(Vector3 axis, double angle)
         {
             var normalized = axis.Normalize();
 
             var halfAngle = angle * 0.5f;
-            var sin = (float) Math.Sin(halfAngle);
+            var sin = Math.Sin(halfAngle);
 
             return new Quaternion(
-                normalized.X * sin, normalized.Y * sin, normalized.Z * sin, (float) Math.Cos(halfAngle));
+                normalized.X * sin, normalized.Y * sin, normalized.Z * sin, Math.Cos(halfAngle));
         }
 
         public static Quaternion operator * (Quaternion left, Quaternion right)
