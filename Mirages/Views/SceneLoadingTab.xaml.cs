@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Mirages.Tabs
+namespace Mirages.Views
 {
     /// <summary>
     /// Interaction logic for SceneLoadingTab.xaml

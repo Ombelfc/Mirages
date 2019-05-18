@@ -1,11 +1,8 @@
 ﻿using _3DEngine.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _3DEngine.Components
 {
-    public class Mesh
+    public abstract class Mesh
     {
         public string Name { get; set; }
         public Color Color { get; set; } = Colors.Yellow;
@@ -17,10 +14,20 @@ namespace _3DEngine.Components
         public Quaternion Rotation { get; set; } = Quaternion.RotationYawPitchRoll(0, 0, 0);
         public Vector3 Scaling { get; set; } = Vector3.One;
 
+        public readonly Surface Surface;
+
+        public Mesh(Surface surface)
+        {
+            Surface = surface;
+        }
+
         public Mesh(int verticesCount, int facesCount)
         {
             Vertices = new Vector3[verticesCount];
             Faces = new Face[facesCount];
         }
+
+        public abstract double IntersectDistance(Ray ray);
+        public abstract Vector3 Normalize(Vector3 position);
     }
 }

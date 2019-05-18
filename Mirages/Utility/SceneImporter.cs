@@ -91,7 +91,7 @@ namespace Mirages.Utility
                     var verticesCount = verticesArray.Count / 3;
                     var facesCount = indicesArray.Count / 3;
 
-                    var mesh = new Mesh(verticesCount, facesCount)
+                    var mesh = new Plane(verticesCount, facesCount)
                     {
                         Position = ParseVector3(meshJson["position"]),
                         Rotation = ParseQuaternion(meshJson["rotation"]),

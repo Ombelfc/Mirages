@@ -6,10 +6,10 @@ namespace _3DEngine.Utilities
 {
     public class Vector2
     {
-        public readonly float X;
-        public readonly float Y;
+        public readonly double X;
+        public readonly double Y;
 
-        public Vector2(float x, float y)
+        public Vector2(double x, double y)
         {
             X = x;
             Y = y;
@@ -25,7 +25,7 @@ namespace _3DEngine.Utilities
             return new Vector2(left.X - right.X, left.Y - right.Y);
         }
 
-        public static Vector2 operator *(Vector2 left, float value)
+        public static Vector2 operator *(Vector2 left, double value)
         {
             return new Vector2(left.X * value, left.Y * value);
         }

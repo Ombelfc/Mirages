@@ -204,8 +204,8 @@ namespace Mirages.ViewModels
             Image = bufferedBitmap.BitmapSource;
             SetCameraParameters(scene.Camera);
 
-            CompositionTarget.Rendering += CompositionTargetOnRendering;
-            IsCameraVisible = true;
+            //CompositionTarget.Rendering += CompositionTargetOnRendering;
+            //IsCameraVisible = true;
         }
 
         private void CompositionTargetOnRendering(object sender, EventArgs e)

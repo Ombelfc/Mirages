@@ -29,7 +29,7 @@ namespace _3DEngine.Algorithms
         // Liang-Barsky's Algorithm
         public bool ClipLine(ref Vector2 begin, ref Vector2 end)
         {
-            var delta = end - begin;
+            /*var delta = end - begin;
             _t0 = 0;
             _t1 = 1;
 
@@ -42,7 +42,7 @@ namespace _3DEngine.Algorithms
                 end = begin + delta * _t1;
 
             if (_t0 > 0)
-                begin += delta * _t0;
+                begin += delta * _t0;*/
 
             return true;
         }

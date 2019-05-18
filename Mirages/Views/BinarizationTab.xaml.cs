@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Mirages.Tabs
+namespace Mirages.Views
 {
     /// <summary>
     /// Interaction logic for BinarizationTab.xaml

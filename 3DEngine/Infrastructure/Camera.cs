@@ -23,6 +23,8 @@ namespace _3DEngine.Infrastructure
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; } = Quaternion.RotationYawPitchRoll(0, 0, 0);
 
+        public Vector3 ForwardDirection { get; set; }
+        public Vector3 RightDirection { get; set; }
         public Vector3 UpDirection { get; set; } = Vector3.UnitY;
         public Vector3 LookDirection { get; set; } = Vector3.UnitZ;
 
@@ -46,6 +48,26 @@ namespace _3DEngine.Infrastructure
             {
                 FieldOfView = (float) (value * 180 / Math.PI);
             }
+        }
+
+        public Camera() { }
+
+        public Camera(Vector3 position, Vector3 forward, Vector3 up, Vector3 right)
+        {
+            this.Position = position;
+            this.ForwardDirection = forward;
+            this.UpDirection = up;
+            this.RightDirection = right;
+        }
+
+        public static Camera Create(Vector3 position, Vector3 lookAt)
+        {
+            Vector3 forward = Vector3.Normalize(lookAt - position);
+            Vector3 down = new Vector3(0, -1, 0);
+            Vector3 right = Vector3.Normalize(Vector3.CrossProduct(forward, down)) * 1.5;
+            Vector3 up = Vector3.Normalize(Vector3.CrossProduct(forward, right)) * 1.5;
+
+            return new Camera(position, forward, up, right);
         }
 
         /// <summary>

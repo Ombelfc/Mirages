@@ -1,8 +1,6 @@
 ﻿using _3DEngine.Components;
 using _3DEngine.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _3DEngine.Shapes
 {
@@ -12,6 +10,9 @@ namespace _3DEngine.Shapes
         private readonly int nblong = 24;
         private readonly int nblat = 16;
 
+        private readonly Vector3 Center;
+        private readonly double Radius;
+
         public Sphere(float radius, int longtitudeNumber, int latitudeNumber) : base(25 * 16 + 2, 2412)
         {
             this.radius = radius;
@@ -20,6 +21,12 @@ namespace _3DEngine.Shapes
 
             Vertices = GetVertices();
             Faces = GetFaces();
+        }
+
+        public Sphere(Vector3 center, double radius, Surface surface) : base(surface)
+        {
+            Center = center;
+            Radius = radius;
         }
 
         private Vector3[] GetVertices()
@@ -83,6 +90,26 @@ namespace _3DEngine.Shapes
             }
 
             return faces;
+        }
+
+        public override double IntersectDistance(Ray ray)
+        {
+            var eo = Center - ray.Start;
+            var v = Vector3.DotProduct(eo, ray.Direction);
+
+            if (v > 0)
+            {
+                var disc = Radius - (Vector3.DotProduct(eo, eo) - (v * v));
+                if (disc > 0)
+                    return v - Math.Sqrt(disc);
+            }
+
+            return double.PositiveInfinity;
+        }
+
+        public override Vector3 Normalize(Vector3 position)
+        {
+            return Vector3.Normalize(position - Center);
         }
     }
 }
