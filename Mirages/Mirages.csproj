@@ -79,16 +79,46 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WriteableBitmapEx.Wpf, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WriteableBitmapEx.1.6.2\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviours\SizeObserver.cs" />
     <Compile Include="Binarizations\Thresholding.cs" />
+    <Compile Include="Converters\DrawingTypeToEnumConverter.cs" />
+    <Compile Include="Converters\MouseButtonEventArgsAndPointToObjectConverter.cs" />
+    <Compile Include="Converters\MouseButtonEventArgsToPointConverter.cs" />
+    <Compile Include="Model\Clipping\ClippingModel.cs" />
+    <Compile Include="Model\Clipping\DrawingType.cs" />
+    <Compile Include="Model\Clipping\MouseArgsAndPoint.cs" />
     <Compile Include="Model\RayTracerModel.cs" />
+    <Compile Include="Utility\DrawingExtensions.cs" />
+    <Compile Include="ViewModels\ClippingViewModel.cs" />
     <Compile Include="Views\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClippingTab.xaml.cs">
+      <DependentUpon>ClippingTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ElementaryTab.xaml.cs">
       <DependentUpon>ElementaryTab.xaml</DependentUpon>
@@ -123,6 +153,10 @@
     <Compile Include="ViewModels\ShortCutsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="Views\BinarizationTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClippingTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="Mirages.Views.ClippingTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:st="http://schemas.spicytaco.io/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+             xmlns:converters="clr-namespace:Mirages.Converters"
+             xmlns:bhvs="clr-namespace:Mirages.Behaviours"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Width" Value="55"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="1"/>
+        </Style>
+
+        <converters:MouseButtonEventArgsToPointConverter x:Key="ArgsToPoint" />
+        <converters:MouseButtonEventArgsAndPointToObjectConverter x:Key="ArgsAndPointToObject" />
+        <converters:DrawingTypeToEnumConverter x:Key="DrawingTypeToEnum" />
+
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <mvvm:EventToCommand Command="{Binding ClippingTabLoaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" Background="LightSteelBlue" BorderBrush="Gainsboro" BorderThickness="2">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <st:StackPanel Grid.Row="0" Margin="5" MarginBetweenChildren="10">
+
+                    <Border Margin="12 5 0 0">
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="2">
+
+                            <st:StackPanel Orientation="Vertical" MarginBetweenChildren="3" HorizontalAlignment="Left">
+
+                                <RadioButton Content="Point" GroupName="DrawingType" IsChecked="{Binding Model.DrawingType, Mode=TwoWay, Converter={StaticResource DrawingTypeToEnum}, ConverterParameter=Point}"
+                                             IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                                <RadioButton Content="Line" GroupName="DrawingType" IsChecked="{Binding Model.DrawingType, Mode=TwoWay, Converter={StaticResource DrawingTypeToEnum}, ConverterParameter=Line}"
+                                             IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                                <RadioButton Content="Polygon" GroupName="DrawingType" IsChecked="{Binding Model.DrawingType, Mode=TwoWay, Converter={StaticResource DrawingTypeToEnum}, ConverterParameter=Polygon}"
+                                             IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                            <xctk:IntegerUpDown Height="25" Value="{Binding Model.LineWidth}" Minimum="0" Maximum="5" HorizontalAlignment="Right" Width="55"
+                                                IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                        </st:StackPanel>
+
+                    </Border>
+
+                    <Border Margin="12 5 0 0">
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="10">
+
+                            <Button Content="Grid" Style="{StaticResource ButtonStyle}" Command="{Binding DrawGrid}" HorizontalAlignment="Left" 
+                                    IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            <xctk:IntegerUpDown Height="25" Value="{Binding Model.GridLineWidth}" Minimum="10" Maximum="50" HorizontalAlignment="Right" Width="55"
+                                                IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                        </st:StackPanel>
+
+                    </Border>
+
+                    <Border>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8">
+
+                            <st:StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+
+                                <Label Content="BG.Color" HorizontalAlignment="Center" />
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.BackgroundColor}"
+                                                  IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                            <st:StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+
+                                <Label Content="Grid Color" HorizontalAlignment="Center" />
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.GridColor}"
+                                                  IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                        </st:StackPanel>
+
+                    </Border>
+
+                    <Border>
+
+                        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8">
+
+                            <st:StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+
+                                <Label Content="Draw Color" HorizontalAlignment="Center" />
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.DrawingColor}"
+                                                  IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                            <st:StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+
+                                <Label Content="Fill Color" HorizontalAlignment="Center" />
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.FillColor}"
+                                                  IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                        </st:StackPanel>
+
+                    </Border>
+
+                    <st:StackPanel Orientation="Vertical" Margin="12" MarginBetweenChildren="10">
+
+                        <Border BorderBrush="LightGray" BorderThickness="1">
+
+                            <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8">
+
+                                <Button Content="Move" Style="{StaticResource ButtonStyle}" Command="{Binding Move}" Background="{Binding Model.MoveButtonBackground}"
+                                        IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                                <Button Content="Remove" Style="{StaticResource ButtonStyle}" Command="{Binding Remove}" Background="{Binding Model.RemoveButtonBackground}"
+                                        IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                        </Border>
+
+                        <Border BorderBrush="LightGray" BorderThickness="1">
+
+                            <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="8">
+
+                                <Button Content="Fill" Style="{StaticResource ButtonStyle}" Command="{Binding Fill}" Background="{Binding Model.FillButtonBackground}"
+                                        IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                                <Button Content="Clip" Style="{StaticResource ButtonStyle}" Command="{Binding Clip}" Background="{Binding Model.ClipButtonBackground}"
+                                        IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+                            </st:StackPanel>
+
+                        </Border>
+
+                    </st:StackPanel>
+
+                </st:StackPanel>
+
+                <Button Grid.Row="1" Content="Clear" Style="{StaticResource ButtonStyle}" Command="{Binding Clear}" IsEnabled="{Binding Model.AreControlsEnabled}" />
+
+            </Grid>
+
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1" Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="2" 
+                bhvs:SizeObserver.Observe="True" bhvs:SizeObserver.ObservedWidth="{Binding Model.ImageWidth, Mode=OneWayToSource}"
+                bhvs:SizeObserver.ObservedHeight="{Binding Model.ImageHeight, Mode=OneWayToSource}">
+
+            <Image x:Name="Image" Source="{Binding Model.ImageSource}" Stretch="Fill">
+
+                <i:Interaction.Triggers>
+
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <mvvm:EventToCommand Command="{Binding MouseLeftButtonDown}" EventArgsConverter="{StaticResource ArgsToPoint}"
+                                             EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <mvvm:EventToCommand Command="{Binding MouseLeftButtonUp}" EventArgsConverter="{StaticResource ArgsToPoint}"
+                                         EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseLeave">
+                        <mvvm:EventToCommand Command="{Binding MouseLeave}" EventArgsConverter="{StaticResource ArgsToPoint}" 
+                                             EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseMove">
+                        <mvvm:EventToCommand Command="{Binding MouseMove}" EventArgsConverter="{StaticResource ArgsAndPointToObject}" 
+                                             EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseRightButtonDown">
+                        <mvvm:EventToCommand Command="{Binding MouseRightButtonDown}" EventArgsConverter="{StaticResource ArgsToPoint}"
+                                             EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+
+                </i:Interaction.Triggers>
+
+            </Image>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

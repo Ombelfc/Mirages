@@ -31,6 +31,7 @@ namespace Mirages.ViewModels
             SimpleIoc.Default.Register<ElementaryViewModel>();
             SimpleIoc.Default.Register<BinarizationViewModel>();
             SimpleIoc.Default.Register<FiltersViewModel>();
+            SimpleIoc.Default.Register<ClippingViewModel>();
             SimpleIoc.Default.Register<SceneLoadingViewModel>();
             SimpleIoc.Default.Register<RayTracerViewModel>();
             SimpleIoc.Default.Register<ShortCutsViewModel>();
@@ -56,6 +57,11 @@ namespace Mirages.ViewModels
         public FiltersViewModel Filters
         {
             get => ServiceLocator.Current.GetInstance<FiltersViewModel>();
+        }
+
+        public ClippingViewModel Clipping
+        {
+            get => ServiceLocator.Current.GetInstance<ClippingViewModel>();
         }
 
         public SceneLoadingViewModel SceneLoading

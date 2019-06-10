@@ -27,6 +27,12 @@
 
         </TabItem>
 
+        <TabItem Header="Clipping" DataContext="{Binding Clipping, Source={StaticResource Locator}}">
+
+            <TabItems:ClippingTab />
+
+        </TabItem>
+
         <TabItem Header="Scene loading" DataContext="{Binding SceneLoading, Source={StaticResource Locator}}">
 
             <TabItems:SceneLoadingTab />
