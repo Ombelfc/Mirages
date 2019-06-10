@@ -18,8 +18,6 @@ namespace Mirages.ViewModels
     {
         #region Private Fields
 
-        private bool IsGridShown = false;
-
         private DrawingShape temporaryShape;
 
         private Point firstPoint;
@@ -45,7 +43,8 @@ namespace Mirages.ViewModels
 
         public ClippingViewModel()
         {
-            Model.ClearAndRedraw = new Action(ClearAndRedraw);
+            Model.RedrawGrid = new Action<bool>(RedrawGrid);
+            Model.ResetBackground = new Action(ResetBackground);
         }
 
         #region Commands
@@ -61,9 +60,25 @@ namespace Mirages.ViewModels
             }
         });
 
+        public ICommand ClippingTabSizeChanged => new RelayCommand(() =>
+        {
+            Model.AreControlsEnabled = false;
+
+            if (!double.IsNaN(Model.ImageWidth) && !double.IsNaN(Model.ImageHeight))
+            {
+                Model.WriteableBitmap = new WriteableBitmap((int)Model.ImageWidth, (int)Model.ImageHeight, 96, 96, PixelFormats.Bgr32, null);
+                Model.WriteableBitmap.Clear(Model.BackgroundColor);
+                Model.ImageSource = Model.WriteableBitmap;
+
+                RedrawGrid();
+            }
+
+            Model.AreControlsEnabled = true;
+        });
+
         public ICommand DrawGrid => new RelayCommand(() =>
         {
-            IsGridShown = !IsGridShown;
+            Model.IsGridShown = !Model.IsGridShown;
 
             RedrawGrid();
             //RedrawAllObjects();
@@ -165,20 +180,25 @@ namespace Mirages.ViewModels
 
         #region Helpers
 
-        private void ClearAndRedraw()
+        private void ResetBackground()
         {
             Model.WriteableBitmap.Clear(Model.BackgroundColor);
-
             RedrawGrid();
-            //RedrawAllObjects();
         }
 
-        private void RedrawGrid()
+        private void RedrawGrid(bool toErase = false)
         {
-            if (!IsGridShown)
+            if (!Model.IsGridShown)
                 return;
 
-            //for(int i =0; i<=Math.Max())
+            if (toErase)
+                Model.WriteableBitmap.Clear(Model.BackgroundColor);
+
+            for (int i = 0; i <= Math.Max(Model.ImageWidth, Model.ImageHeight); i += Model.GridLineWidth)
+            {
+                Model.WriteableBitmap.DrawLine(new Point(i, 0), new Point(i, Model.ImageWidth), Model.GridColor, 0);
+                Model.WriteableBitmap.DrawLine(new Point(0, i), new Point(Model.ImageWidth, i), Model.GridColor, 0);
+            }
         }
 
         private Point SnapPoint(DrawingShape shape, Point point, int distance)

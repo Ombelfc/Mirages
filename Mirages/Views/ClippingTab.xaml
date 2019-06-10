@@ -9,7 +9,7 @@
              xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              xmlns:converters="clr-namespace:Mirages.Converters"
              xmlns:bhvs="clr-namespace:Mirages.Behaviours"
-             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
 
     <UserControl.Resources>
 
@@ -26,9 +26,15 @@
     </UserControl.Resources>
 
     <i:Interaction.Triggers>
+        
         <i:EventTrigger EventName="Loaded">
             <mvvm:EventToCommand Command="{Binding ClippingTabLoaded}" />
         </i:EventTrigger>
+
+        <i:EventTrigger EventName="SizeChanged">
+            <mvvm:EventToCommand Command="{Binding ClippingTabSizeChanged}" />
+        </i:EventTrigger>
+        
     </i:Interaction.Triggers>
 
     <Grid>
@@ -83,7 +89,7 @@
                         <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="10">
 
                             <Button Content="Grid" Style="{StaticResource ButtonStyle}" Command="{Binding DrawGrid}" HorizontalAlignment="Left" 
-                                    IsEnabled="{Binding Model.AreControlsEnabled}" />
+                                    Background="{Binding Model.GridButtonBackgroundColor}" IsEnabled="{Binding Model.AreControlsEnabled}" />
 
                             <xctk:IntegerUpDown Height="25" Value="{Binding Model.GridLineWidth}" Minimum="10" Maximum="50" HorizontalAlignment="Right" Width="55"
                                                 IsEnabled="{Binding Model.AreControlsEnabled}" />

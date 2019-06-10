@@ -14,8 +14,8 @@ namespace Mirages.Model.Clipping
 
         #region Brushes
 
-        private readonly Brush buttonBrush = Brushes.LightGray;
-        private readonly Brush enabledBrush = Brushes.LightGreen;
+        private static readonly Brush buttonBrush = Brushes.LightGray;
+        private static readonly Brush enabledBrush = Brushes.LightGreen;
 
         #endregion
 
@@ -25,7 +25,8 @@ namespace Mirages.Model.Clipping
 
         #region Actions
 
-        public Action ClearAndRedraw { get; set; }
+        public Action<bool> RedrawGrid { get; set; }
+        public Action ResetBackground { get; set; }
 
         #endregion
 
@@ -41,11 +42,23 @@ namespace Mirages.Model.Clipping
 
         #region Modes
 
+        private bool isGridShown = false;
         private bool isDrawingMode = false;
         private bool isMovePolygonMode = false;
         private bool isClipPolygonMode = false;
         private bool isFillPolygonMode = false;
         private bool isRemovalMode = false;
+
+        public bool IsGridShown
+        {
+            get => isGridShown;
+            set
+            {
+                isGridShown = value;
+                GridButtonBackgroundColor = value ? enabledBrush : buttonBrush;
+                ResetBackground();
+            }
+        }
 
         public bool IsDrawingMode
         {
@@ -93,7 +106,7 @@ namespace Mirages.Model.Clipping
 
         public bool IsRemovalMode
         {
-            get => IsRemovalMode;
+            get => isRemovalMode;
             set
             {
                 isRemovalMode = value;
@@ -122,6 +135,20 @@ namespace Mirages.Model.Clipping
         }
 
         #region Image
+
+        private ImageSource image;
+        /// <summary>
+        /// 
+        /// </summary>
+        public ImageSource ImageSource
+        {
+            get => image;
+            set
+            {
+                image = value;
+                RaisePropertyChanged("ImageSource");
+            }
+        }
 
         private double imageWidth;
         /// <summary>
@@ -191,13 +218,13 @@ namespace Mirages.Model.Clipping
             set
             {
                 gridLineWidth = value;
-
-                //DrawGrid(true);
-                //RedrawAllObjects();
+                RedrawGrid(true);
 
                 RaisePropertyChanged("GridLineWidth");
             }
         }
+
+        #region Colors
 
         private Color backgroundColor = Colors.LightGray;
         /// <summary>
@@ -209,7 +236,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 backgroundColor = value;
-                ClearAndRedraw();
+                ResetBackground();
 
                 RaisePropertyChanged("BackgroundColor");
             }
@@ -225,7 +252,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 gridColor = value;
-                //ClearAndRedraw();
+                RedrawGrid(false);
 
                 RaisePropertyChanged("GridColor");
             }
@@ -259,21 +286,25 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private ImageSource image;
+        #endregion
+
+        #region Button Background-Colors
+
+        private Brush gridButtonBackgroundColor = buttonBrush;
         /// <summary>
-        /// 
+        /// The background color of the grid-button.
         /// </summary>
-        public ImageSource ImageSource
+        public Brush GridButtonBackgroundColor
         {
-            get => image;
+            get => gridButtonBackgroundColor;
             set
             {
-                image = value;
-                RaisePropertyChanged("ImageSource");
+                gridButtonBackgroundColor = value;
+                RaisePropertyChanged("GridButtonBackgroundColor");
             }
         }
 
-        private Brush moveButtonBackground;
+        private Brush moveButtonBackground = buttonBrush;
         /// <summary>
         /// The background color of the move-button.
         /// </summary>
@@ -287,7 +318,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush removeButtonBackground;
+        private Brush removeButtonBackground = buttonBrush;
         /// <summary>
         /// The background color of the remove-button.
         /// </summary>
@@ -301,7 +332,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush clipButtonBackground;
+        private Brush clipButtonBackground = buttonBrush;
         /// <summary>
         /// The background color of the clip-button.
         /// </summary>
@@ -315,7 +346,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush fillButtonBackground;
+        private Brush fillButtonBackground = buttonBrush;
         /// <summary>
         /// The background color of the fill-button.
         /// </summary>
@@ -328,6 +359,8 @@ namespace Mirages.Model.Clipping
                 RaisePropertyChanged("FillButtonBackground");
             }
         }
+
+        #endregion
 
         #region Enabled Booleans
 
