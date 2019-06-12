@@ -1,4 +1,4 @@
-﻿using _3DEngine.Utilities;
+﻿using Mirages.Infrastructure.Components.Colors;
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -27,7 +27,7 @@ namespace Mirages.Core.Engine
             _backBuffer = new byte[PixelWidth * PixelHeight * 4];
         }
 
-        public void Clear(Color32 color)
+        public void Clear(ByteColor color)
         {
             for (var offset = 0; offset < _backBuffer.Length; offset += 4)
             {
@@ -38,7 +38,7 @@ namespace Mirages.Core.Engine
             }
         }
 
-        public void DrawPoint(int x, int y, Color32 color)
+        public void DrawPoint(int x, int y, ByteColor color)
         {
             if (x < 0 || y < 0 || x >= PixelWidth || y >= PixelHeight)
                 return;

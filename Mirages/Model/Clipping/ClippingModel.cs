@@ -1,5 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using Mirages.Core.Clipping.Shapes;
+using Mirages.Infrastructure.Components.Colors;
+using Mirages.Infrastructure.Extensions;
+using Mirages.Utility.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -9,17 +12,6 @@ namespace Mirages.Model.Clipping
 {
     public class ClippingModel : ObservableObject
     {
-        #region Private Fields
-
-        #region Brushes
-
-        private static readonly Brush buttonBrush = Brushes.LightGray;
-        private static readonly Brush enabledBrush = Brushes.LightGreen;
-
-        #endregion
-
-        #endregion
-
         #region Non-Binding Properties
 
         #region Actions
@@ -54,7 +46,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 isGridShown = value;
-                GridButtonBackgroundColor = value ? enabledBrush : buttonBrush;
+                GridButtonBackgroundColor = value ? BrushesExtensions.EnabledBrush : BrushesExtensions.ButtonBrush;
                 ResetBackground();
             }
         }
@@ -76,7 +68,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 isMovePolygonMode = value;
-                MoveButtonBackground = value ? enabledBrush : buttonBrush;
+                MoveButtonBackground = value ? BrushesExtensions.EnabledBrush : BrushesExtensions.ButtonBrush;
 
                 //DrawGrid();
                 //RedrawAllObjects();
@@ -89,7 +81,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 isClipPolygonMode = value;
-                ClipButtonBackground = value ? enabledBrush : buttonBrush;
+                ClipButtonBackground = value ? BrushesExtensions.EnabledBrush : BrushesExtensions.ButtonBrush;
             }
         }
 
@@ -99,7 +91,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 isFillPolygonMode = value;
-                FillButtonBackground = value ? enabledBrush : buttonBrush;
+                FillButtonBackground = value ? BrushesExtensions.EnabledBrush : BrushesExtensions.ButtonBrush;
             }
         }
 
@@ -109,7 +101,7 @@ namespace Mirages.Model.Clipping
             set
             {
                 isRemovalMode = value;
-                RemoveButtonBackground = value ? enabledBrush : buttonBrush;
+                RemoveButtonBackground = value ? BrushesExtensions.EnabledBrush : BrushesExtensions.ButtonBrush;
             }
         }
 
@@ -225,11 +217,11 @@ namespace Mirages.Model.Clipping
 
         #region Colors
 
-        private Color backgroundColor = Colors.LightGray;
+        private ByteColor backgroundColor = ColorsExtensions.LightGray;
         /// <summary>
         /// Background color of the canvas.
         /// </summary>
-        public Color BackgroundColor
+        public ByteColor BackgroundColor
         {
             get => backgroundColor;
             set
@@ -241,11 +233,11 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Color gridColor = Colors.AliceBlue;
+        private ByteColor gridColor = ColorsExtensions.AliceBlue;
         /// <summary>
         /// Color of the grid lines.
         /// </summary>
-        public Color GridColor
+        public ByteColor GridColor
         {
             get => gridColor;
             set
@@ -257,11 +249,11 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Color drawingColor = Colors.OrangeRed;
+        private ByteColor drawingColor = ColorsExtensions.OrangeRed;
         /// <summary>
         /// Color of the line to draw.
         /// </summary>
-        public Color DrawingColor
+        public ByteColor DrawingColor
         {
             get => drawingColor;
             set
@@ -271,11 +263,11 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Color fillColor = Colors.Firebrick;
+        private ByteColor fillColor = ColorsExtensions.Firebrick;
         /// <summary>
         /// Color of the area to fill.
         /// </summary>
-        public Color FillColor
+        public ByteColor FillColor
         {
             get => fillColor;
             set
@@ -289,7 +281,7 @@ namespace Mirages.Model.Clipping
 
         #region Button Background-Colors
 
-        private Brush gridButtonBackgroundColor = buttonBrush;
+        private Brush gridButtonBackgroundColor = BrushesExtensions.ButtonBrush;
         /// <summary>
         /// The background color of the grid-button.
         /// </summary>
@@ -303,7 +295,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush moveButtonBackground = buttonBrush;
+        private Brush moveButtonBackground = BrushesExtensions.ButtonBrush;
         /// <summary>
         /// The background color of the move-button.
         /// </summary>
@@ -317,7 +309,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush removeButtonBackground = buttonBrush;
+        private Brush removeButtonBackground = BrushesExtensions.ButtonBrush;
         /// <summary>
         /// The background color of the remove-button.
         /// </summary>
@@ -331,7 +323,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush clipButtonBackground = buttonBrush;
+        private Brush clipButtonBackground = BrushesExtensions.ButtonBrush;
         /// <summary>
         /// The background color of the clip-button.
         /// </summary>
@@ -345,7 +337,7 @@ namespace Mirages.Model.Clipping
             }
         }
 
-        private Brush fillButtonBackground = buttonBrush;
+        private Brush fillButtonBackground = BrushesExtensions.ButtonBrush;
         /// <summary>
         /// The background color of the fill-button.
         /// </summary>

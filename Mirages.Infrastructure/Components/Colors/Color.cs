@@ -6,12 +6,24 @@
     /// <typeparam name="T"></typeparam>
     public class Color<T>
     {
-        #region Fields
+        #region Properties
 
         /// <summary>
-        /// Holds the RGBA values of the color.
+        /// Red value of the color.
         /// </summary>
-        private T[] RGBA { get; }
+        public T R { get; private set; }
+        /// <summary>
+        /// Green value of the color.
+        /// </summary>
+        public T G { get; private set; }
+        /// <summary>
+        /// Blue value of the color.
+        /// </summary>
+        public T B { get; private set; }
+        /// <summary>
+        /// Alpha value of the color.
+        /// </summary>
+        public T A { get; private set; }
 
         #endregion
 
@@ -23,9 +35,8 @@
         /// <param name="value"></param>
         public Color(T value)
         {
-            RGBA = new[] { value, value, value, value };
+            R = G = B = A = value;
         }
-
         /// <summary>
         /// Creates a new color with equal RGB values and the given alpha value.
         /// </summary>
@@ -33,9 +44,9 @@
         /// <param name="alpha"></param>
         public Color(T value, T alpha)
         {
-            RGBA = new[] { value, value, value, alpha };
+            R = G = B = value;
+            A = alpha;
         }
-
         /// <summary>
         /// Creates a new color with the given RGBA values.
         /// </summary>
@@ -45,29 +56,11 @@
         /// <param name="a"></param>
         public Color(T r, T g, T b, T a)
         {
-            RGBA = new[] { r, g, b, a };
+            R = r;
+            G = g;
+            B = b;
+            A = a;
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Red value of the color.
-        /// </summary>
-        public T R => RGBA[0];
-        /// <summary>
-        /// Green value of the color.
-        /// </summary>
-        public T G => RGBA[1];
-        /// <summary>
-        /// Blue value of the color.
-        /// </summary>
-        public T B => RGBA[2];
-        /// <summary>
-        /// Alpha value of the color.
-        /// </summary>
-        public T A => RGBA[3];
 
         #endregion
     }

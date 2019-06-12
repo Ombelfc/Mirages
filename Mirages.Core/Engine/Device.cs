@@ -1,6 +1,6 @@
-﻿using _3DEngine.Algorithms;
-using _3DEngine.Infrastructure;
-using _3DEngine.Utilities;
+﻿using Mirages.Core.Algorithms;
+using Mirages.Engine.Graphics;
+using Mirages.Infrastructure.Components;
 using System.Linq;
 
 namespace Mirages.Core.Engine
@@ -22,7 +22,7 @@ namespace Mirages.Core.Engine
                 new Vector2(0, 0), new Vector2(bufferedBitmap.PixelWidth, bufferedBitmap.PixelHeight));
         }
 
-        public void Render(Scene scene)
+        /*public void Render(Scene scene)
         {
             // Order of transformation:
             // 1. Object space: In this space there are models at the beginning, they have no position or rotation.
@@ -87,6 +87,6 @@ namespace Mirages.Core.Engine
             var y = bufferedBitmap.PixelHeight * (-point.Y + 0.5f);
 
             return new Vector2(x, y);
-        }
+        }*/
     }
 }

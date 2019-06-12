@@ -3,7 +3,7 @@
 namespace Mirages.Infrastructure.Components.Colors
 {
     /// <summary>
-    /// 32 bits double-precision color object.
+    /// 32 bits double-precision color.
     /// </summary>
     public class DoubleColor : Color<double>
     {
@@ -34,7 +34,7 @@ namespace Mirages.Infrastructure.Components.Colors
         /// <param name="g"></param>
         /// <param name="b"></param>
         /// <param name="a"></param>
-        public DoubleColor(double r, double g, double b, double a) : base(r.Validate(), g.Validate(), b.Validate(), a.Validate()) { }
+        public DoubleColor(double r, double g, double b, double a) : base(r.ValidateBound(), g.ValidateBound(), b.ValidateBound(), a.ValidateBound()) { }
 
         #endregion
 

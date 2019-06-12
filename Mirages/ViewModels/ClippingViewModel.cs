@@ -1,16 +1,12 @@
-﻿using _3DEngine.Components;
-using _3DEngine.Utilities;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Mirages.Core.Clipping.Shapes;
 using Mirages.Model.Clipping;
-using Mirages.Utility;
+using Mirages.Utility.Extensions;
 using System;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Color = System.Windows.Media.Color;
 
 namespace Mirages.ViewModels
 {
@@ -18,14 +14,31 @@ namespace Mirages.ViewModels
     {
         #region Private Fields
 
+        /// <summary>
+        /// Instance of the model for the clipping tab.
+        /// </summary>
+        private ClippingModel model = new ClippingModel();
+        /// <summary>
+        /// Temporary shape being drawn.
+        /// </summary>
         private DrawingShape temporaryShape;
+        /// <summary>
+        /// First point drawn.
+        /// </summary>
         private Point firstPoint;
+        /// <summary>
+        /// Last point drawn.
+        /// </summary>
         private Point lastPoint;
+        /// <summary>
+        /// Point that the mouse last drew.
+        /// </summary>
         private Point lastMovedToPoint;
 
         #endregion
 
-        private ClippingModel model = new ClippingModel();
+        #region Properties
+
         /// <summary>
         /// The data-model for the view
         /// </summary>
@@ -39,6 +52,10 @@ namespace Mirages.ViewModels
             }
         }
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Instantiates a new clipping-view-model instance.
         /// </summary>
@@ -49,6 +66,8 @@ namespace Mirages.ViewModels
             // Set the reset background action
             Model.ResetBackground = new Action(ResetBackground);
         }
+
+        #endregion
 
         #region Commands
 
@@ -65,7 +84,7 @@ namespace Mirages.ViewModels
                 // Initialize a new writeable-bitmap with the given image width and image height
                 Model.WriteableBitmap = new WriteableBitmap((int)Model.ImageWidth, (int)Model.ImageHeight, 96, 96, PixelFormats.Bgr32, null);
                 // Set the background of the image
-                Model.WriteableBitmap.Clear(Model.BackgroundColor);
+                Model.WriteableBitmap.Clear(ColorExtensions.FromByteColor(Model.BackgroundColor));
                 // Assign the writeable-bitmap as a source of the image
                 Model.ImageSource = Model.WriteableBitmap;
                 // Enable all the controls
@@ -86,7 +105,7 @@ namespace Mirages.ViewModels
                 // Initialize a new writeable-bitmap with the given image width and image height
                 Model.WriteableBitmap = new WriteableBitmap((int)Model.ImageWidth, (int)Model.ImageHeight, 96, 96, PixelFormats.Bgr32, null);
                 // Set the background of the image
-                Model.WriteableBitmap.Clear(Model.BackgroundColor);
+                Model.WriteableBitmap.Clear(ColorExtensions.FromByteColor(Model.BackgroundColor));
                 // Assign the writeable-bitmap as a source of the image
                 Model.ImageSource = Model.WriteableBitmap;
                 // Re-draw the grid
@@ -164,7 +183,7 @@ namespace Mirages.ViewModels
             // Re-instantiate the writeable-bitmap
             Model.WriteableBitmap = new WriteableBitmap((int)Model.ImageWidth, (int)Model.ImageHeight, 96, 96, PixelFormats.Bgr32, null);
             // Set the background of the image
-            Model.WriteableBitmap.Clear(Model.BackgroundColor);
+            Model.WriteableBitmap.Clear(ColorExtensions.FromByteColor(Model.BackgroundColor));
             // Assign the writeable-bitmap as a source of the image
             Model.ImageSource = Model.WriteableBitmap;
         });
@@ -178,6 +197,9 @@ namespace Mirages.ViewModels
         /// </summary>
         public ICommand MouseLeftButtonDown => new RelayCommand<Point>(point  =>
         {
+            if (point == null)
+                return;
+
             // If no mode is selected already
             if (!Model.IsDrawingMode && !Model.IsMovePolygonMode && !Model.IsRemovalMode && !Model.IsFillPolygonMode && !Model.IsClipPolygonMode)
             {
@@ -187,7 +209,7 @@ namespace Mirages.ViewModels
                 Model.IsDrawingMode = true;
 
                 // Set the width of the shape
-                temporaryShape.Width = Model.LineWidth;
+                temporaryShape.LineWidth = Model.LineWidth;
                 // Set the color of the shape
                 temporaryShape.Color = Model.DrawingColor;
                 // The first point and the last point are set to the point where the mouse had been clicked
@@ -200,13 +222,16 @@ namespace Mirages.ViewModels
         /// </summary>
         public ICommand MouseLeftButtonUp => new RelayCommand<Point>(point =>
         {
+            if (point == null)
+                return;
+
             // If the drawing mode is set
             if (Model.IsDrawingMode && !Model.IsRemovalMode && !Model.IsMovePolygonMode && !Model.IsClipPolygonMode)
             {
                 // If drawing a point
-                if (temporaryShape is CustomPoint temporaryPoint)
+                if (temporaryShape is Point temporaryPoint)
                 {
-                    temporaryPoint.DrawAndAdd(Model.WriteableBitmap, lastPoint, temporaryShape.Color, temporaryShape.Width);
+                    //temporaryPoint.DrawAndAdd(Model.WriteableBitmap, lastPoint, temporaryShape.Color, temporaryShape.LineWidth);
                 }
             }
         });
@@ -216,7 +241,8 @@ namespace Mirages.ViewModels
         /// </summary>
         public ICommand MouseLeave => new RelayCommand<Point>(point =>
         {
-
+            if (point == null)
+                return;
         });
 
         /// <summary>
@@ -224,11 +250,14 @@ namespace Mirages.ViewModels
         /// </summary>
         public ICommand MouseMove => new RelayCommand<MouseArgsAndPoint>(model =>
         {
+            if (model == null)
+                return;
+
             // If the drawing mode is set and point mouse is pressed and moved
             if (model.Args.LeftButton == MouseButtonState.Pressed && Model.IsDrawingMode && Model.DrawingType != DrawingType.Point && !Model.IsRemovalMode && !Model.IsClipPolygonMode && !Model.IsMovePolygonMode)
             {
                 // Draw the line from start to end
-                Model.WriteableBitmap.DrawLine(lastPoint, model.Point, Model.DrawingColor, Model.LineWidth);
+                //Model.WriteableBitmap.DrawLine(lastPoint, model.Point, Model.DrawingColor, Model.LineWidth);
             }
 
             // Last point the mouse moved to
@@ -240,7 +269,8 @@ namespace Mirages.ViewModels
         /// </summary>
         public ICommand MouseRightButtonDown => new RelayCommand<Point>(point =>
         {
-
+            if (point == null)
+                return;
         });
 
         #endregion
@@ -250,7 +280,7 @@ namespace Mirages.ViewModels
         #region Helpers
 
         /// <summary>
-        /// Returns the type of shape to draw based on the drawing-type selected.
+        /// Returns the type of the shape to draw based on the drawing-type selected.
         /// </summary>
         /// <param name="drawingType"></param>
         /// <returns></returns>
@@ -261,7 +291,7 @@ namespace Mirages.ViewModels
             else if (drawingType == DrawingType.Line)
                 return new Line();
             else
-                return new CustomPoint();
+                return new Point();
         }
 
         /// <summary>
@@ -270,7 +300,7 @@ namespace Mirages.ViewModels
         private void ResetBackground()
         {
             // Clear the background of the image.
-            Model.WriteableBitmap.Clear(Model.BackgroundColor);
+            Model.WriteableBitmap.Clear(ColorExtensions.FromByteColor(Model.BackgroundColor));
             // Redraw the grid.
             RedrawGrid();
         }
@@ -287,13 +317,13 @@ namespace Mirages.ViewModels
 
             // If to erase the current grid before drawing a new one
             if (toErase)
-                Model.WriteableBitmap.Clear(Model.BackgroundColor);
+                Model.WriteableBitmap.Clear(ColorExtensions.FromByteColor(Model.BackgroundColor));
 
             // Draw the grid
             for (int i = 0; i <= Math.Max(Model.ImageWidth, Model.ImageHeight); i += Model.GridLineWidth)
             {
-                Model.WriteableBitmap.DrawLine(new Point(i, 0), new Point(i, Model.ImageWidth), Model.GridColor, 0);
-                Model.WriteableBitmap.DrawLine(new Point(0, i), new Point(Model.ImageWidth, i), Model.GridColor, 0);
+                //Model.WriteableBitmap.DrawGridLine(new Point(i, 0), new Point(i, Model.ImageWidth), Model.GridColor, 0);
+                //Model.WriteableBitmap.DrawGridLine(new Point(0, i), new Point(Model.ImageWidth, i), Model.GridColor, 0);
             }
         }
 

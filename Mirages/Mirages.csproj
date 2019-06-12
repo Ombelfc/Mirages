@@ -105,6 +105,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviours\SizeObserver.cs" />
     <Compile Include="Binarizations\Thresholding.cs" />
+    <Compile Include="Converters\ColorToByteColorConverter.cs" />
     <Compile Include="Converters\DrawingTypeToEnumConverter.cs" />
     <Compile Include="Converters\MouseButtonEventArgsAndPointToObjectConverter.cs" />
     <Compile Include="Converters\MouseButtonEventArgsToPointConverter.cs" />
@@ -112,8 +113,9 @@
     <Compile Include="Model\Clipping\DrawingType.cs" />
     <Compile Include="Model\Clipping\MouseArgsAndPoint.cs" />
     <Compile Include="Model\RayTracerModel.cs" />
-    <Compile Include="Utility\DrawingExtensions.cs" />
-    <Compile Include="Utility\WriteableBitmapExtensions.cs" />
+    <Compile Include="Utility\Extensions\BrushesExtensions.cs" />
+    <Compile Include="Utility\Extensions\ColorExtensions.cs" />
+    <Compile Include="Utility\Extensions\ColorsExtensions.cs" />
     <Compile Include="ViewModels\ClippingViewModel.cs" />
     <Compile Include="Views\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
@@ -224,6 +226,14 @@
     <ProjectReference Include="..\Mirages.Core\Mirages.Core.csproj">
       <Project>{7001E364-8E53-41AA-AC9A-6D293C6BB614}</Project>
       <Name>Mirages.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirages.Engine\Mirages.Engine.csproj">
+      <Project>{84AA1D19-3FF4-4E77-B0B5-129F0C6819C9}</Project>
+      <Name>Mirages.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mirages.Infrastructure\Mirages.Infrastructure.csproj">
+      <Project>{C2530C61-F171-4BD6-98D9-81AB5E6F4F62}</Project>
+      <Name>Mirages.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

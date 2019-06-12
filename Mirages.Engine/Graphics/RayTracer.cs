@@ -10,9 +10,9 @@ namespace Mirages.Engine.Graphics
         private readonly int screenHeight;
         private const int MaxDepth = 5;
 
-        public Action<int, int, Color<byte>> setPixel;
+        public Action<int, int, ByteColor> setPixel;
 
-        public RayTracer(int screenWidth, int screenHeight, Action<int, int, Color<byte>> setPixel)
+        public RayTracer(int screenWidth, int screenHeight, Action<int, int, ByteColor> setPixel)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;

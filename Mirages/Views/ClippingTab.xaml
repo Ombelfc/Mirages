@@ -22,6 +22,7 @@
         <converters:MouseButtonEventArgsToPointConverter x:Key="ArgsToPoint" />
         <converters:MouseButtonEventArgsAndPointToObjectConverter x:Key="ArgsAndPointToObject" />
         <converters:DrawingTypeToEnumConverter x:Key="DrawingTypeToEnum" />
+        <converters:ColorToByteColorConverter x:Key="ColorToByteColor" />
 
     </UserControl.Resources>
 
@@ -105,7 +106,7 @@
                             <st:StackPanel Orientation="Vertical" HorizontalAlignment="Left">
 
                                 <Label Content="BG.Color" HorizontalAlignment="Center" />
-                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.BackgroundColor}"
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.BackgroundColor, Converter={StaticResource ColorToByteColor}}"
                                                   IsEnabled="{Binding Model.AreControlsEnabled}" />
 
                             </st:StackPanel>
@@ -113,7 +114,7 @@
                             <st:StackPanel Orientation="Vertical" HorizontalAlignment="Right">
 
                                 <Label Content="Grid Color" HorizontalAlignment="Center" />
-                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.GridColor}"
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.GridColor, Converter={StaticResource ColorToByteColor}}"
                                                   IsEnabled="{Binding Model.AreControlsEnabled}" />
 
                             </st:StackPanel>
@@ -129,7 +130,7 @@
                             <st:StackPanel Orientation="Vertical" HorizontalAlignment="Left">
 
                                 <Label Content="Draw Color" HorizontalAlignment="Center" />
-                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.DrawingColor}"
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.DrawingColor, Converter={StaticResource ColorToByteColor}}"
                                                   IsEnabled="{Binding Model.AreControlsEnabled}" />
 
                             </st:StackPanel>
@@ -137,7 +138,7 @@
                             <st:StackPanel Orientation="Vertical" HorizontalAlignment="Right">
 
                                 <Label Content="Fill Color" HorizontalAlignment="Center" />
-                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.FillColor}"
+                                <xctk:ColorPicker Height="25" Width="70" SelectedColor="{Binding Model.FillColor, Converter={StaticResource ColorToByteColor}}"
                                                   IsEnabled="{Binding Model.AreControlsEnabled}" />
 
                             </st:StackPanel>
@@ -201,7 +202,7 @@
 
                     <i:EventTrigger EventName="MouseLeftButtonUp">
                         <mvvm:EventToCommand Command="{Binding MouseLeftButtonUp}" EventArgsConverter="{StaticResource ArgsToPoint}"
-                                         EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
+                                            EventArgsConverterParameter="{Binding ElementName=Image}" PassEventArgsToCommand="True" />
                     </i:EventTrigger>
 
                     <i:EventTrigger EventName="MouseLeave">

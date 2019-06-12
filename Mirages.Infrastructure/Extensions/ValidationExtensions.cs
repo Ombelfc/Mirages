@@ -5,14 +5,14 @@ namespace Mirages.Infrastructure.Extensions
     /// <summary>
     /// Class containing extensions methods handling color creation.
     /// </summary>
-    public static class ColorExtensions
+    public static class ValidationExtensions
     {
         /// <summary>
         /// Validates the color value (min : 0, max : 1).
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public static double Validate(this double x)
+        public static double ValidateBound(this double x)
         {
             if (x < 0) return 0;
             return x > 1 ? 1 : x;
@@ -26,7 +26,7 @@ namespace Mirages.Infrastructure.Extensions
         public static DoubleColor ValidateColor(this DoubleColor vector)
         {
             return new DoubleColor(
-                Validate(vector.R), Validate(vector.G), Validate(vector.B), Validate(vector.A));
+                ValidateBound(vector.R), ValidateBound(vector.G), ValidateBound(vector.B), ValidateBound(vector.A));
         }
     }
 }

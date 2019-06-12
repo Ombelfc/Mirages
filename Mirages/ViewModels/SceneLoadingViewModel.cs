@@ -1,10 +1,8 @@
-﻿using _3DEngine.Algorithms;
-using _3DEngine.Components;
-using _3DEngine.Infrastructure;
-using _3DEngine.Utilities;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Mirages.Core.Engine;
+using Mirages.Engine.Graphics;
 using Mirages.Utility;
 using System;
 using System.Globalization;
@@ -187,8 +185,6 @@ namespace Mirages.ViewModels
         {
             SetData();
 
-            LoadSceneCommand = new RelayCommand(OnLoadSceneCommand);
-
             Messenger.Default.Register<Key>(this, MessengerTokens.KeyPressed, k => OnKeyPressed(k));
             Messenger.Default.Register<int>(this, MessengerTokens.MouseWheenSpin, d => OnMouseWheel(d));
         }
@@ -199,10 +195,10 @@ namespace Mirages.ViewModels
             device = new Device(bufferedBitmap);
 
             scene = SceneImporter.LoadSceneJsonFile(Path.Combine("Resources", "scene.unity.babylon"));
-            scene.Meshes.First(m => m.Name == "Plane").Color = _3DEngine.Utilities.Colors.DarkGrey;
+            //scene.Meshes.First(m => m.Name == "Plane").Color = _3DEngine.Utilities.Colors.DarkGrey;
 
             Image = bufferedBitmap.BitmapSource;
-            SetCameraParameters(scene.Camera);
+            //SetCameraParameters(scene.Camera);
 
             //CompositionTarget.Rendering += CompositionTargetOnRendering;
             //IsCameraVisible = true;
@@ -213,8 +209,8 @@ namespace Mirages.ViewModels
             if (!IsCameraVisible)
                 return;
 
-            bufferedBitmap.Clear(_3DEngine.Utilities.Colors.Black.ToColor32());
-            device.Render(scene);
+            //bufferedBitmap.Clear(_3DEngine.Utilities.Colors.Black.ToColor32());
+            //device.Render(scene);
             bufferedBitmap.Present();
         }
 
@@ -225,7 +221,7 @@ namespace Mirages.ViewModels
             var step = 0.2f;
             var rot = 1f;
 
-            switch (k)
+            /*switch (k)
             {
                 case Key.W:
                     scene.Camera.Move(new Vector3(0, 0, step));
@@ -263,9 +259,9 @@ namespace Mirages.ViewModels
                 case Key.L:
                     scene.Camera.Rotate(Axis.X, -rot);
                     break;
-            }
+            }*/
 
-            SetCameraParameters(scene.Camera);
+            //SetCameraParameters(scene.Camera);
         }
 
         private void OnMouseWheel(int d)
@@ -280,7 +276,7 @@ namespace Mirages.ViewModels
 
         #region Updating UI Parameters
 
-        private void SetCameraParameters(Camera camera)
+        /*private void SetCameraParameters(Camera camera)
         {
             SetCoordinates(camera.Position);
             SetCoordinates(camera.Rotation);
@@ -304,13 +300,8 @@ namespace Mirages.ViewModels
         private double RadianToDegree(double angle)
         {
             return Math.Round(angle * (180.0f / Math.PI));
-        }
+        }*/
 
         #endregion
-
-        private void OnLoadSceneCommand()
-        {
-            
-        }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Mirages.Infrastructure.Components;
+using Mirages.Infrastructure.Components.Colors;
 
 namespace Mirages.Core.Clipping.Shapes
 {
@@ -27,12 +29,12 @@ namespace Mirages.Core.Clipping.Shapes
             throw new NotImplementedException();
         }
 
-        public override void EraseObject(List<DrawingShape> list, WriteableBitmap writeableBitmap, System.Windows.Media.Color color)
+        public override void EraseObject(List<DrawingShape> list, WriteableBitmap writeableBitmap, DoubleColor color)
         {
             throw new NotImplementedException();
         }
 
-        public override void HighlightObject(bool ifHighlight, WriteableBitmap writeableBitmap, System.Windows.Media.Color color)
+        public override void HighlightObject(bool ifHighlight, WriteableBitmap writeableBitmap, DoubleColor color)
         {
             throw new NotImplementedException();
         }

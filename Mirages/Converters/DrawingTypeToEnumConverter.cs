@@ -7,6 +7,7 @@ namespace Mirages.Converters
 {
     /// <summary>
     /// Converts the radio button selection to its equivalent enum value and back.
+    /// https://stackoverflow.com/questions/397556/how-to-bind-radiobuttons-to-an-enum
     /// </summary>
     public class DrawingTypeToEnumConverter : IValueConverter
     {

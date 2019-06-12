@@ -1,10 +1,10 @@
-﻿using _3DEngine.Components;
+﻿using Mirages.Infrastructure.Components;
+using Mirages.Infrastructure.Components.Colors;
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace _3DEngine.Utilities
+namespace Mirages.Core.Clipping.Shapes
 {
     public class Line : DrawingShape
     {
@@ -45,16 +45,6 @@ namespace _3DEngine.Utilities
             throw new NotImplementedException();
         }
 
-        public override void EraseObject(List<DrawingShape> list, WriteableBitmap writeableBitmap, System.Windows.Media.Color color)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void HighlightObject(bool ifHighlight, WriteableBitmap writeableBitmap, System.Windows.Media.Color color)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool IfPointCloseToBoundary(Point point)
         {
             throw new NotImplementedException();
@@ -66,6 +56,16 @@ namespace _3DEngine.Utilities
         }
 
         public override void UpdateBoundaries()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void EraseObject(List<DrawingShape> list, WriteableBitmap writeableBitmap, DoubleColor color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void HighlightObject(bool ifHighlight, WriteableBitmap writeableBitmap, DoubleColor color)
         {
             throw new NotImplementedException();
         }

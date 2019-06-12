@@ -1,7 +1,7 @@
-﻿using _3DEngine.Components;
-using _3DEngine.Utilities;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Mirages.Engine.Graphics;
+using Mirages.Infrastructure.Components.Colors;
 using Mirages.Model;
 using System;
 using System.Windows;
@@ -63,7 +63,7 @@ namespace Mirages.ViewModels
             IntPtr pBackBuffer = default(IntPtr);
             int backBufferStride = 0;
 
-            RayTracer rayTracer = new RayTracer(1450, 445, (int x, int y, Color<byte> color) =>
+            RayTracer rayTracer = new RayTracer(1450, 445, (int x, int y, ByteColor color) =>
             {
                 DrawPixel(pBackBuffer, backBufferStride, x, y, color);
             });
@@ -78,7 +78,7 @@ namespace Mirages.ViewModels
                     backBufferStride = Model.WriteableBitmap.BackBufferStride;
                 });
 
-                rayTracer.Render(rayTracer.DefaultScene(x));
+                //rayTracer.Render(rayTracer.DefaultScene(x));
 
                 // Release the back buffer and make it available for display.
                 Model.WriteableBitmap.Dispatcher.Invoke(() =>
@@ -99,7 +99,7 @@ namespace Mirages.ViewModels
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="color"></param>
-        private void DrawPixel(IntPtr pBackBuffer, int backBufferStride, int x, int y, Color<byte> color)
+        private void DrawPixel(IntPtr pBackBuffer, int backBufferStride, int x, int y, ByteColor color)
         {
             unsafe
             {

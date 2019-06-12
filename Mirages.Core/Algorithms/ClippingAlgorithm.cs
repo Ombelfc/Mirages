@@ -1,4 +1,4 @@
-﻿using _3DEngine.Utilities;
+﻿using Mirages.Infrastructure.Components;
 using System;
 
 namespace Mirages.Core.Algorithms
