@@ -113,6 +113,7 @@
     <Compile Include="Model\Clipping\MouseArgsAndPoint.cs" />
     <Compile Include="Model\RayTracerModel.cs" />
     <Compile Include="Utility\DrawingExtensions.cs" />
+    <Compile Include="Utility\WriteableBitmapExtensions.cs" />
     <Compile Include="ViewModels\ClippingViewModel.cs" />
     <Compile Include="Views\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
@@ -220,9 +221,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\3DEngine\3DEngine.csproj">
-      <Project>{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}</Project>
-      <Name>3DEngine</Name>
+    <ProjectReference Include="..\Mirages.Core\Mirages.Core.csproj">
+      <Project>{7001E364-8E53-41AA-AC9A-6D293C6BB614}</Project>
+      <Name>Mirages.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

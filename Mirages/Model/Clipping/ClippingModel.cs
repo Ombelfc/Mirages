@@ -1,8 +1,7 @@
-﻿using _3DEngine.Components;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
+using Mirages.Core.Clipping.Shapes;
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 

@@ -12,7 +12,7 @@ namespace Mirages.Converters
             var args = value as MouseEventArgs;
             var element = parameter as FrameworkElement;
 
-            return new MouseArgsAndPoint { Args = args, Point = args?.GetPosition(element) };
+            return new MouseArgsAndPoint { Args = args, Point = args.GetPosition(element) };
         }
     }
 }

@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirages", "Mirages\Mirages.csproj", "{4AFE4F80-F89B-4145-962B-366F464219DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DEngine", "3DEngine\3DEngine.csproj", "{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirages.Core", "Mirages.Core\Mirages.Core.csproj", "{7001E364-8E53-41AA-AC9A-6D293C6BB614}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mirages.Infrastructure", "Mirages.Infrastructure\Mirages.Infrastructure.csproj", "{C2530C61-F171-4BD6-98D9-81AB5E6F4F62}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mirages.Engine", "Mirages.Engine\Mirages.Engine.csproj", "{84AA1D19-3FF4-4E77-B0B5-129F0C6819C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,18 @@ Global
 		{4AFE4F80-F89B-4145-962B-366F464219DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFE4F80-F89B-4145-962B-366F464219DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFE4F80-F89B-4145-962B-366F464219DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49DA5F45-2E9B-49C8-A682-B8B02DAD9968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7001E364-8E53-41AA-AC9A-6D293C6BB614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7001E364-8E53-41AA-AC9A-6D293C6BB614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7001E364-8E53-41AA-AC9A-6D293C6BB614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7001E364-8E53-41AA-AC9A-6D293C6BB614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2530C61-F171-4BD6-98D9-81AB5E6F4F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2530C61-F171-4BD6-98D9-81AB5E6F4F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2530C61-F171-4BD6-98D9-81AB5E6F4F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2530C61-F171-4BD6-98D9-81AB5E6F4F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84AA1D19-3FF4-4E77-B0B5-129F0C6819C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84AA1D19-3FF4-4E77-B0B5-129F0C6819C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84AA1D19-3FF4-4E77-B0B5-129F0C6819C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84AA1D19-3FF4-4E77-B0B5-129F0C6819C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
