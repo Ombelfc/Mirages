@@ -1,10 +1,6 @@
 ﻿using Mirages.Core.Clipping.Shapes;
 using Mirages.Infrastructure.Components.Colors;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace Mirages.Utility.Extensions
@@ -14,6 +10,14 @@ namespace Mirages.Utility.Extensions
     /// </summary>
     public static class WriteableBitmapExtensions
     {
+        /// <summary>
+        /// Draws a line between 2 points relaying on a slope determination.
+        /// </summary>
+        /// <param name="writeableBitmap"></param>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="color"></param>
+        /// <param name="radius"></param>
         public static void DrawGridLine(this WriteableBitmap writeableBitmap, Point startPoint, Point endPoint, ByteColor color, int radius)
         {
             int x1 = (int) startPoint.X;
@@ -21,7 +25,9 @@ namespace Mirages.Utility.Extensions
             int x2 = (int) endPoint.X;
             int y2 = (int) endPoint.Y;
 
+            // Draw 'core' line
             writeableBitmap.DrawLine(x1, y1, x2, y2, ColorExtensions.FromByteColor(color));
+            // Delta(y) > Delta(x)
             var slope = Math.Abs(y2 - y1) > Math.Abs(x2 - x1);
 
             if (slope && radius > 0)
