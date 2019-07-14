@@ -169,6 +169,8 @@ namespace Mirages.Model.Clipping
 
         #endregion
 
+        #region Drawing
+
         private DrawingType drawingType = DrawingType.Polygon;
         /// <summary>
         /// Type of the shape to draw.
@@ -214,6 +216,8 @@ namespace Mirages.Model.Clipping
                 RaisePropertyChanged("GridLineWidth");
             }
         }
+
+        #endregion
 
         #region Colors
 

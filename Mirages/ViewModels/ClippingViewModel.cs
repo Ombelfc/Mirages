@@ -100,6 +100,7 @@ namespace Mirages.ViewModels
             // Disable all the controls
             Model.AreControlsEnabled = false;
 
+            // If the image width and height are set
             if (!double.IsNaN(Model.ImageWidth) && !double.IsNaN(Model.ImageHeight))
             {
                 // Initialize a new writeable-bitmap with the given image width and image height
@@ -319,12 +320,13 @@ namespace Mirages.ViewModels
             if (toErase)
                 Model.WriteableBitmap.Clear(ColorExtensions.FromByteColor(Model.BackgroundColor));
 
-            // Draw the grid
-            for (int i = 0; i <= Math.Max(Model.ImageWidth, Model.ImageHeight); i += Model.GridLineWidth)
-            {
-                //Model.WriteableBitmap.DrawGridLine(new Point(i, 0), new Point(i, Model.ImageWidth), Model.GridColor, 0);
-                //Model.WriteableBitmap.DrawGridLine(new Point(0, i), new Point(Model.ImageWidth, i), Model.GridColor, 0);
-            }
+            // Draw the vertical lines
+            for (int i = 0; i <= Model.ImageWidth; i += Model.GridLineWidth)
+                Model.WriteableBitmap.DrawGridLine(new Point(i, 0), new Point(i, Model.ImageHeight), Model.GridColor, 0);
+
+            // Draw the horizontal lines
+            for (int i = 0; i <= Model.ImageHeight; i += Model.GridLineWidth)
+                Model.WriteableBitmap.DrawGridLine(new Point(0, i), new Point(Model.ImageWidth, i), Model.GridColor, 0);
         }
 
         /// <summary>

@@ -116,6 +116,7 @@
     <Compile Include="Utility\Extensions\BrushesExtensions.cs" />
     <Compile Include="Utility\Extensions\ColorExtensions.cs" />
     <Compile Include="Utility\Extensions\ColorsExtensions.cs" />
+    <Compile Include="Utility\Extensions\WriteableBitmapExtensions.cs" />
     <Compile Include="ViewModels\ClippingViewModel.cs" />
     <Compile Include="Views\BinarizationTab.xaml.cs">
       <DependentUpon>BinarizationTab.xaml</DependentUpon>
