@@ -22,6 +22,10 @@ namespace Mirages.Core.Clipping.Shapes
         /// Y coordinate of the point.
         /// </summary>
         public double Y { get; private set; }
+        /// <summary>
+        /// Last-point of the current shape.
+        /// </summary>
+        public Point LastPoint { get; set; }
 
         #endregion
 
@@ -53,11 +57,11 @@ namespace Mirages.Core.Clipping.Shapes
 
         public void DrawAndAdd(WriteableBitmap writeableBitmap, Point lastPoint, ByteColor color, int width)
         {
-            //Point = lastPoint;
+            LastPoint = lastPoint;
             Color = color;
             LineWidth = width;
             Boundary = new Boundary(lastPoint.X, lastPoint.Y);
-            //writeableBitmap.DrawPoint(lastPoint, Color, Width);
+            //writeableBitmap.DrawPoint(lastPoint, color, width);
         }
 
         #endregion

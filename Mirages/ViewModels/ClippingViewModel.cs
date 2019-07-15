@@ -119,7 +119,7 @@ namespace Mirages.ViewModels
 
         #endregion
 
-        #region Button Clicks
+        #region Button Commands
 
         /// <summary>
         /// Switches the grid-shown flag (on/off).
@@ -191,7 +191,7 @@ namespace Mirages.ViewModels
 
         #endregion
 
-        #region Button Events / Commands
+        #region Button Click Events
 
         /// <summary>
         /// Executes when the left-mouse-button is down inside the image area.
@@ -232,7 +232,7 @@ namespace Mirages.ViewModels
                 // If drawing a point
                 if (temporaryShape is Point temporaryPoint)
                 {
-                    //temporaryPoint.DrawAndAdd(Model.WriteableBitmap, lastPoint, temporaryShape.Color, temporaryShape.LineWidth);
+                    temporaryPoint.DrawAndAdd(Model.WriteableBitmap, lastPoint, temporaryShape.Color, temporaryShape.LineWidth);
                 }
             }
         });

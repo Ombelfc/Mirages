@@ -41,5 +41,16 @@ namespace Mirages.Utility.Extensions
                     writeableBitmap.DrawLine(x1, y1 + i, x2, y2 + i, ColorExtensions.FromByteColor(color));
             }
         }
+
+        public static void DrawPoint(this WriteableBitmap writeableBitmap, Point point, ByteColor color, int radius)
+        {
+            int x = (int) point.X;
+            int y = (int) point.Y;
+
+            for (int i = x - radius; i <= x + radius; i++)
+                for (int j = y - radius; j <= y + radius; j++)
+                    if ((i - x) * (i - x) + (j - y) * (j - y) <= radius * radius)
+                        writeableBitmap.SetPixel(i, j, ColorExtensions.FromByteColor(color));
+        }
     }
 }
