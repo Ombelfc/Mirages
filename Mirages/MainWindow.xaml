@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:TabItems="clr-namespace:Mirages.Views" mc:Ignorable="d"
-        Title="Mirages" Height="600" Width="1600">
+        Title="Mirages" Height="600" Width="1200" WindowStartupLocation="CenterScreen">
 
     <TabControl DataContext="{Binding Main, Source={StaticResource Locator}}">
 
